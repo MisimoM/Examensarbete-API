@@ -1,3 +1,4 @@
+using Modules.Listings;
 using Modules.Users;
 using Modules.Users.Common.Helpers;
 using Modules.Users.Data;
@@ -6,6 +7,7 @@ using Modules.Users.Entities;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddUserModule(builder.Configuration);
+builder.Services.AddListingModule(builder.Configuration);
 
 builder.Services.AddCors(options =>
 {
