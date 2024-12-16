@@ -10,4 +10,6 @@ public class Listing
     public string MainLocation { get; set; } = default!;
     public string SubLocation { get; set; } = default!;
     public decimal Price { get; set; }
+    public DateTime AvailableFrom { get; set; }
+    public DateTime AvailableUntil { get; set; }
 }

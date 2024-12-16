@@ -45,6 +45,14 @@ public class ListingDbContext : DbContext
                   .IsRequired()
                   .HasColumnType("decimal(18,2)");
 
+            entity.Property(l => l.AvailableFrom)
+                  .IsRequired()
+                  .HasColumnType("date");
+
+            entity.Property(l => l.AvailableUntil)
+                  .IsRequired()
+                  .HasColumnType("date");
+
             entity.HasIndex(l => l.MainLocation);
 
             entity.HasIndex(l => l.SubLocation);
