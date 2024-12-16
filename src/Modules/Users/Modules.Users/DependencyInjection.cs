@@ -8,7 +8,6 @@ using Modules.Users.Data;
 using Modules.Users.Features.Authentication.Login;
 using FluentValidation;
 using System.Reflection;
-using Shared;
 
 namespace Modules.Users;
 

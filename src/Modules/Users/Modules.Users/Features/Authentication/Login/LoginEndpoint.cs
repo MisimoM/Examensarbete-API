@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
-using Shared;
+using Modules.Users.Common.Helpers;
 
 namespace Modules.Users.Features.Authentication.Login;
 
