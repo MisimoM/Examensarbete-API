@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Modules.Listings.Data;
+using Modules.Listings.Features.GetListingById;
 using Modules.Listings.Features.SearchListing;
 using Shared;
+using System.Reflection;
 
 namespace Modules.Listings;
 
@@ -16,7 +19,10 @@ public static class DependencyInjection
             options.UseSqlServer(configuration.GetConnectionString("ListingDb")
         ));
 
+        services.AddValidatorsFromAssembly(Assembly.Load("Modules.Listings"));
+
         services.AddScoped<SearchListingHandler>();
+        services.AddScoped<GetListingByIdHandler>();
 
         return services;
     }
