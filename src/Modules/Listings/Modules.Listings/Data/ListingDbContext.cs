@@ -9,7 +9,7 @@ public class ListingDbContext : DbContext
     {
     }
 
-    public DbSet<Listing> Listings { get; set; } = default!;
+    internal DbSet<Listing> Listings { get; set; } = default!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

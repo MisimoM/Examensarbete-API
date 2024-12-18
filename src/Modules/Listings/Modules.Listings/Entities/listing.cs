@@ -1,6 +1,6 @@
 ﻿namespace Modules.Listings.Entities;
 
-public class Listing
+internal class Listing
 {
     public Guid Id { get; set; }
     public string Title { get; set; } = default!;
