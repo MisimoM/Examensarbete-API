@@ -2,7 +2,7 @@
 
 namespace Modules.Users.Common.Identity;
 
-public interface ITokenProvider
+internal interface ITokenProvider
 {
     string Create(User user);
 }

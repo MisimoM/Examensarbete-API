@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
-using Modules.Users.Common.Helpers;
+using Shared;
 
 namespace Modules.Users.Features.Authentication.Login;
 
-public class LoginEndpoint : IEndpoint
+internal class LoginEndpoint : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder builder)
     {

@@ -3,15 +3,13 @@ using Modules.Listings.Entities;
 
 namespace Modules.Listings.Data;
 
-//Kommentar
-
-public class ListingDbContext : DbContext
+internal class ListingDbContext : DbContext
 {
     public ListingDbContext(DbContextOptions<ListingDbContext> options) : base(options)
     {
     }
 
-    internal DbSet<Listing> Listings { get; set; } = default!;
+    public DbSet<Listing> Listings { get; set; } = default!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

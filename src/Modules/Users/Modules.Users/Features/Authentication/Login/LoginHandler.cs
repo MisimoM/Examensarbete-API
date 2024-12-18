@@ -7,7 +7,7 @@ using Modules.Users.Data;
 
 namespace Modules.Users.Features.Authentication.Login;
 
-public sealed class LoginHandler(UserDbContext dbContext, IPasswordHasher passwordHasher, ITokenProvider tokenProvider, IValidator<LoginRequest> validator)
+internal sealed class LoginHandler(UserDbContext dbContext, IPasswordHasher passwordHasher, ITokenProvider tokenProvider, IValidator<LoginRequest> validator)
 {
     private readonly UserDbContext _dbContext = dbContext;
     private readonly IPasswordHasher _passwordHasher = passwordHasher;
@@ -40,9 +40,6 @@ public sealed class LoginHandler(UserDbContext dbContext, IPasswordHasher passwo
         };
         
         httpContext.Response.Cookies.Append("accessToken", accessToken, cookieOptions);
-        
-        var userDto = UserMapper.ToUserDto(user);
-
 
         return Results.Ok(new LoginResponse("Login successful"));
     }

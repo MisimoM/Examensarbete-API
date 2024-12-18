@@ -1,7 +1,6 @@
 ﻿namespace Modules.Listings.Features.SearchListing;
 
-//Kommentar
-public record SearchListingResponse (
+internal record SearchListingResponse (
     Guid Id,
     string Title,
     string ImageUrl,

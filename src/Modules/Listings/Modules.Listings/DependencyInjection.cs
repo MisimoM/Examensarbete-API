@@ -11,7 +11,6 @@ using System.Reflection;
 
 namespace Modules.Listings;
 
-//Kommentar
 public static class DependencyInjection
 {
     public static IServiceCollection AddListingModule(this IServiceCollection services, IConfiguration configuration)

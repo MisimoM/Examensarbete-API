@@ -5,8 +5,7 @@ using Shared;
 
 namespace Modules.Listings.Features.GetListingById;
 
-//Kommentar
-public class GetListingByIdEndpoint : IEndpoint
+internal class GetListingByIdEndpoint : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder builder)
     {

@@ -1,6 +1,5 @@
 ﻿namespace Modules.Listings.Entities;
 
-//Kommentar
 internal class Listing
 {
     public Guid Id { get; set; }

@@ -5,8 +5,7 @@ using Modules.Listings.Data;
 
 namespace Modules.Listings.Features.GetListingById;
 
-//Kommentar
-public class GetListingByIdHandler(ListingDbContext dbContext, IValidator<GetListingByIdRequest> validator)
+internal class GetListingByIdHandler(ListingDbContext dbContext, IValidator<GetListingByIdRequest> validator)
 {
     private readonly ListingDbContext _dbContext = dbContext;
     private readonly IValidator<GetListingByIdRequest> _validator = validator;

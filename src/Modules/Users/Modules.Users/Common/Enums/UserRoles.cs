@@ -1,6 +1,6 @@
 ﻿namespace Modules.Users.Common.Enums;
 
-public enum UserRole
+internal enum UserRole
 {
     Customer,
     Host,
