@@ -1,5 +1,6 @@
 ﻿namespace Modules.Listings.Features.GetListingById;
 
+//Kommentar
 internal record GetListingByIdResponse(
     Guid Id,
     string Title,

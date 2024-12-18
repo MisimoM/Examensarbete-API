@@ -3,6 +3,8 @@ using Modules.Listings.Entities;
 
 namespace Modules.Listings.Data;
 
+//Kommentar
+
 public class ListingDbContext : DbContext
 {
     public ListingDbContext(DbContextOptions<ListingDbContext> options) : base(options)

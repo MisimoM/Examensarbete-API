@@ -2,6 +2,7 @@
 
 namespace Modules.Listings.Features.GetListingById;
 
+//Kommentar
 public class GetListingByIdValidator : AbstractValidator<GetListingByIdRequest>
 {
     public GetListingByIdValidator()

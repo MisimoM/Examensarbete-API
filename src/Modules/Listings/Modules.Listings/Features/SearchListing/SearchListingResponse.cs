@@ -1,5 +1,6 @@
 ﻿namespace Modules.Listings.Features.SearchListing;
 
+//Kommentar
 public record SearchListingResponse (
     Guid Id,
     string Title,
