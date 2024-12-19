@@ -1,3 +1,4 @@
+using Modules.Bookings.Infrastructure;
 using Modules.Listings;
 using Modules.Users;
 
@@ -5,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddUserModule(builder.Configuration);
 builder.Services.AddListingModule(builder.Configuration);
+builder.Services.AddBookingModuleInfrastructure(builder.Configuration);
 
 builder.Services.AddCors(options =>
 {

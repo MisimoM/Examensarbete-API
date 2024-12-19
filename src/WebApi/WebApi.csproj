@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Modules\Bookings\Modules.Bookings.Application\Modules.Bookings.Application.csproj" />
+    <ProjectReference Include="..\Modules\Bookings\Modules.Bookings.Infrastructure\Modules.Bookings.Infrastructure.csproj" />
     <ProjectReference Include="..\Modules\Listings\Modules.Listings\Modules.Listings.csproj" />
     <ProjectReference Include="..\Modules\Users\Modules.Users\Modules.Users.csproj" />
     <ProjectReference Include="..\Shared\Shared.csproj" />
