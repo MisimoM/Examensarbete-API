@@ -12,6 +12,11 @@ internal class BookingDbContext : DbContext, IBookingDbContext
 
     public DbSet<Booking> Bookings { get; set; } = default!;
 
+    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        return base.SaveChangesAsync(cancellationToken);
+    }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema("Bookings");
