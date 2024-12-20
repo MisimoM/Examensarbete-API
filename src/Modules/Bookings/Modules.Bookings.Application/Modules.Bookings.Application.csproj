@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Shared\Shared.csproj" />
+    <ProjectReference Include="..\..\Listings\Modules.Listings\Modules.Listings.csproj" />
     <ProjectReference Include="..\Modules.Bookings.Domain\Modules.Bookings.Domain.csproj" />
   </ItemGroup>
 

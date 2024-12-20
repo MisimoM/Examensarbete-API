@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Modules.Listings.Communication;
 using Modules.Listings.Data;
 using Modules.Listings.Features.GetListingById;
 using Modules.Listings.Features.SearchListing;
@@ -23,6 +24,7 @@ public static class DependencyInjection
 
         services.AddScoped<SearchListingHandler>();
         services.AddScoped<GetListingByIdHandler>();
+        services.AddScoped<IListingService, ListingService>();
 
         return services;
     }
