@@ -4,17 +4,27 @@ using Microsoft.EntityFrameworkCore;
 using Modules.Bookings.Application.Interfaces;
 using Modules.Bookings.Domain.Entities;
 using Modules.Listings.Communication;
+using System.Security.Claims;
 
 namespace Modules.Bookings.Application.Bookings.CreateBooking;
 
-public class CreateBookingHandler(IBookingDbContext dbContext, IListingService listingService, IValidator<CreateBookingRequest> validator)
+public class CreateBookingHandler(IBookingDbContext dbContext, IListingService listingService, IValidator<CreateBookingRequest> validator, IHttpContextAccessor httpContextAccessor)
 {
     private readonly IBookingDbContext _dbContext = dbContext;
     private readonly IListingService _listingService = listingService;
     private readonly IValidator<CreateBookingRequest> _validator = validator;
-
+    private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
     public async Task<IResult> Handle(CreateBookingRequest request, CancellationToken cancellationToken)
     {
+        var userIdClaim = _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
+        
+        if (string.IsNullOrEmpty(userIdClaim))
+        {
+            return Results.Unauthorized();
+        }
+
+        var userId = Guid.Parse(userIdClaim);
+
         var validationResult = await _validator.ValidateAsync(request, cancellationToken);
         if (!validationResult.IsValid)
             return Results.BadRequest(new { errors = validationResult.Errors.Select(e => e.ErrorMessage) });
@@ -32,7 +42,7 @@ public class CreateBookingHandler(IBookingDbContext dbContext, IListingService l
             return Results.BadRequest("The selected dates are not available for this listing.");
 
         var booking = Booking.Create(
-            request.UserId,
+            userId,
             request.ListingId,
             request.StartDate,
             request.EndDate,

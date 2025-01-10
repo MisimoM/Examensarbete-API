@@ -3,6 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 using Modules.Users.Entities;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
@@ -10,7 +11,7 @@ namespace Modules.Users.Common.Identity;
 
 internal sealed class TokenProvider(IConfiguration configuration) : ITokenProvider
 {
-    public string Create(User user)
+    public string CreateAccessToken(User user)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
         string secretKey = configuration["Jwt:Secret"]!;
@@ -37,5 +38,10 @@ internal sealed class TokenProvider(IConfiguration configuration) : ITokenProvid
         var accessToken = tokenHandler.CreateToken(TokenDescriptor);
 
         return tokenHandler.WriteToken(accessToken);
+    }
+
+    public string CreateRefreshToken()
+    {
+        return Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
     }
 }

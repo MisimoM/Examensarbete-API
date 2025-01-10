@@ -4,10 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Modules.Users.Common.Helpers;
 using Modules.Users.Common.Identity;
 using Modules.Users.Data;
+using Modules.Users.Entities;
 
 namespace Modules.Users.Features.Authentication.Login;
 
-internal sealed class LoginHandler(UserDbContext dbContext, IPasswordHasher passwordHasher, ITokenProvider tokenProvider, IValidator<LoginRequest> validator)
+internal class LoginHandler(UserDbContext dbContext, IPasswordHasher passwordHasher, ITokenProvider tokenProvider, IValidator<LoginRequest> validator)
 {
     private readonly UserDbContext _dbContext = dbContext;
     private readonly IPasswordHasher _passwordHasher = passwordHasher;
@@ -17,29 +18,30 @@ internal sealed class LoginHandler(UserDbContext dbContext, IPasswordHasher pass
     public async Task<IResult> Handle(LoginRequest request, HttpContext httpContext)
     {
         var validationResult = await _validator.ValidateAsync(request);
+        
         if (!validationResult.IsValid)
-        {
             return Results.BadRequest(validationResult.Errors.Select(e => e.ErrorMessage));
-        }
 
         var user = await _dbContext.Users.SingleOrDefaultAsync(u => u.Email == request.Email);
 
         if (user is null || !_passwordHasher.Verify(request.Password, user.Password))
-        {
             return Results.BadRequest(new { error = "Invalid login credentials" });
-        }
 
-        var accessToken = _tokenProvider.Create(user);
-        
-        var cookieOptions = new CookieOptions
+        var accessToken = _tokenProvider.CreateAccessToken(user);
+
+        var refreshToken = new RefreshToken
         {
-            HttpOnly = true,
-            Secure = true,
-            SameSite = SameSiteMode.None, 
-            Expires = DateTime.UtcNow.AddHours(1)
+            Id = Guid.NewGuid(),
+            UserId = user.Id,
+            Token = _tokenProvider.CreateRefreshToken(),
+            ExpiresOnUtc = DateTime.UtcNow.AddDays(7)
         };
-        
-        httpContext.Response.Cookies.Append("accessToken", accessToken, cookieOptions);
+
+        _dbContext.RefreshTokens.Add(refreshToken);
+        await _dbContext.SaveChangesAsync();
+
+        CookieFactory.AppendCookie(httpContext.Response, "accessToken", accessToken, TimeSpan.FromMinutes(10));
+        CookieFactory.AppendCookie(httpContext.Response, "refreshToken", refreshToken.Token, TimeSpan.FromDays(7));
 
         return Results.Ok(new LoginResponse("Login successful"));
     }

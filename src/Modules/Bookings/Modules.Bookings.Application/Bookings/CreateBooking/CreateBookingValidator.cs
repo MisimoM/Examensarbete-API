@@ -6,10 +6,6 @@ public class CreateBookingValidator : AbstractValidator<CreateBookingRequest>
 {
     public CreateBookingValidator()
     {
-        RuleFor(request => request.UserId)
-            .NotEmpty()
-            .WithMessage("UserId is required.");
-
         RuleFor(request => request.ListingId)
             .NotEmpty()
             .WithMessage("ListingId is required.");
