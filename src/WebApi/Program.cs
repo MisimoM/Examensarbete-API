@@ -24,10 +24,13 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+app.UseCors("AllowFrontend");
+
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.MapUserEndpoints();
 app.MapListingEndpoints();
 app.MapBookingEndpoints();
-
-app.UseCors("AllowFrontend");
 
 app.Run();

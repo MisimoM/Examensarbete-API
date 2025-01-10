@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Modules.Users.Entities;
-using System.Data;
 namespace Modules.Users.Data;
 
 internal class UserDbContext : DbContext
@@ -11,6 +10,7 @@ internal class UserDbContext : DbContext
     {
     }
     public DbSet<User> Users { get; set; } = default!;
+    public DbSet<RefreshToken> RefreshTokens { get; set; } = default!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -33,6 +33,21 @@ internal class UserDbContext : DbContext
 
             entity.Property(u => u.Password)
                   .IsRequired();
+        });
+
+        modelBuilder.Entity<RefreshToken>(entity =>
+        {
+            entity.HasKey(r  => r.Id);
+
+            entity.Property(r => r.Token)
+                  .HasMaxLength(200);
+
+            entity.HasIndex(r => r.Token)
+                  .IsUnique();
+
+            entity.HasOne(r => r.User)
+                  .WithMany()
+                  .HasForeignKey(r => r.UserId);
         });
     }
 }

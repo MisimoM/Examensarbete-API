@@ -14,7 +14,9 @@ public class CreateBookingEndpoint : IEndpoint
             var response = await createBookingHandler.Handle(request, cancellationToken);
             return response;
 
-        }).WithName(nameof(CreateBooking))
+        })
+        .RequireAuthorization()
+        .WithName(nameof(CreateBooking))
         .Produces<CreateBookingResponse>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status400BadRequest);
     }

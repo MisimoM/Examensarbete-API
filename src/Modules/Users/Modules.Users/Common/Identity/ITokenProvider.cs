@@ -4,5 +4,6 @@ namespace Modules.Users.Common.Identity;
 
 internal interface ITokenProvider
 {
-    string Create(User user);
+    string CreateAccessToken(User user);
+    string CreateRefreshToken();
 }

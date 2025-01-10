@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Modules.Bookings.Application.Bookings.CreateBooking;
-using Modules.Bookings.Application.Interfaces;
 using Shared;
 using System.Reflection;
 
@@ -13,10 +12,13 @@ namespace Modules.Bookings.Application
     {
         public static IServiceCollection AddBookingModuleApplication(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddHttpContextAccessor();
+
             services.AddValidatorsFromAssembly(Assembly.Load("Modules.Bookings.Application"));
 
             services.AddScoped<CreateBookingHandler>();
-            
+
+
             return services;
         }
 
