@@ -2,6 +2,7 @@ using Modules.Bookings.Application;
 using Modules.Bookings.Infrastructure;
 using Modules.Listings;
 using Modules.Users;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,9 @@ builder.Services.AddUserModule(builder.Configuration);
 builder.Services.AddListingModule(builder.Configuration);
 builder.Services.AddBookingModuleInfrastructure(builder.Configuration);
 builder.Services.AddBookingModuleApplication(builder.Configuration);
+
+builder.Host.UseSerilog((context, configuration) =>
+    configuration.ReadFrom.Configuration(context.Configuration));
 
 builder.Services.AddCors(options =>
 {
@@ -24,6 +28,7 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+app.UseSerilogRequestLogging();
 app.UseCors("AllowFrontend");
 
 app.UseAuthentication();
