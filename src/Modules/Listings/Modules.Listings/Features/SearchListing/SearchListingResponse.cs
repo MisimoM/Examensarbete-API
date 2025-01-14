@@ -3,7 +3,6 @@
 internal record SearchListingResponse (
     Guid Id,
     string Title,
-    string ImageUrl,
     string AccommodationType,
     string MainLocation,
     string SubLocation,

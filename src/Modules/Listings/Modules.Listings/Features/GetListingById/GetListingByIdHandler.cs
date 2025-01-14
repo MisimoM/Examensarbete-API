@@ -24,7 +24,6 @@ internal class GetListingByIdHandler(ListingDbContext dbContext, IValidator<GetL
             listing.Id,
             listing.Title,
             listing.Description,
-            listing.ImageUrl,
             listing.AccommodationType,
             listing.MainLocation,
             listing.SubLocation,
