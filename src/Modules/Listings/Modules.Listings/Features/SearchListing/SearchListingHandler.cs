@@ -25,7 +25,6 @@ internal class SearchListingHandler(ListingDbContext dbContext)
             (
                 l.Id,
                 l.Title,
-                l.ImageUrl,
                 l.AccommodationType,
                 l.MainLocation,
                 l.SubLocation,
