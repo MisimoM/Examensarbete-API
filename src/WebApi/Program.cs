@@ -3,9 +3,11 @@ using Modules.Bookings.Infrastructure;
 using Modules.Listings;
 using Modules.Users;
 using Serilog;
+using Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddSharedServices();
 builder.Services.AddUserModule(builder.Configuration);
 builder.Services.AddListingModule(builder.Configuration);
 builder.Services.AddBookingModuleInfrastructure(builder.Configuration);
@@ -28,6 +30,7 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+app.UseExceptionHandler();
 app.UseSerilogRequestLogging();
 app.UseCors("AllowFrontend");
 

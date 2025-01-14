@@ -12,7 +12,7 @@ internal class LoginEndpoint : IEndpoint
         builder.MapPost("/auth/login", async (LoginRequest request, LoginHandler loginHandler, HttpContext httpContext) =>
         {
             var response = await loginHandler.Handle(request, httpContext);
-            return response;
+            return Results.Ok(response);
 
         }).WithName(nameof(Login))
         .Produces<LoginResponse>(StatusCodes.Status200OK)

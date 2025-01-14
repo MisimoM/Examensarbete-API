@@ -13,7 +13,7 @@ internal class RefreshEndpoint : IEndpoint
         {
             var response = await handler.Handle(httpContext);
 
-            return response;
+            return Results.Ok(response);
         });
     }
 }

@@ -13,7 +13,7 @@ internal class GetListingByIdEndpoint : IEndpoint
         {
             var request = new GetListingByIdRequest (id);
             var response = await handler.Handle(request);
-            return response;
+            return Results.Ok(response);
 
         }).WithName(nameof(GetListingById))
         .Produces<GetListingByIdResponse>(StatusCodes.Status200OK)

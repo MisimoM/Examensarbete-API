@@ -12,7 +12,7 @@ internal class SearchListingEndpoint : IEndpoint
         builder.MapPost("Listings/Search", async (SearchListingRequest request, SearchListingHandler searchListingHandler) =>
         {
             var response = await searchListingHandler.Handle(request);
-            return response;
+            return Results.Ok(response);
 
         }).WithName(nameof(SearchListing))
         .Produces<SearchListingResponse>(StatusCodes.Status200OK)
