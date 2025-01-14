@@ -14,9 +14,6 @@ internal class ListingService(ListingDbContext dbContext) : IListingService
             .AsNoTracking()
             .FirstOrDefaultAsync(l => l.Id == id);
 
-        if (listing is null)
-            throw new Exception($"Listing with ID {id} not found.");
-
-        return listing;
+        return listing!;
     }
 }
