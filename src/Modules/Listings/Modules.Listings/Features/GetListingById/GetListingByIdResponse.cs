@@ -1,6 +1,6 @@
 ﻿namespace Modules.Listings.Features.GetListingById;
 
-internal record GetListingByIdResponse(
+public record GetListingByIdResponse(
     Guid Id,
     string Title,
     string Description,
@@ -9,4 +9,7 @@ internal record GetListingByIdResponse(
     string SubLocation,
     decimal Price,
     DateTime AvailableFrom,
-    DateTime AvailableUntil);
+    DateTime AvailableUntil,
+    List<ListingImageResponse> Images);
+
+public record ListingImageResponse(string Url, string AltText);

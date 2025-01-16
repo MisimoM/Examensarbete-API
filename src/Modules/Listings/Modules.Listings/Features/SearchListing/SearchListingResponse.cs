@@ -8,5 +8,7 @@ internal record SearchListingResponse (
     string SubLocation,
     decimal Price,
     DateTime AvailableFrom,
-    DateTime AvailableUntil
-    );
+    DateTime AvailableUntil,
+    List<ListingImageResponse> Images);
+
+public record ListingImageResponse(string Url, string AltText);

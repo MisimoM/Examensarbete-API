@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Modules.Listings.Communication;
 using Modules.Listings.Data;
+using Modules.Listings.Features.CreateListing;
 using Modules.Listings.Features.GetListingById;
 using Modules.Listings.Features.SearchListing;
 using Shared;
@@ -24,6 +25,7 @@ public static class DependencyInjection
 
         services.AddScoped<SearchListingHandler>();
         services.AddScoped<GetListingByIdHandler>();
+        services.AddScoped<CreateListingHandler>();
         services.AddScoped<IListingService, ListingService>();
 
         return services;
