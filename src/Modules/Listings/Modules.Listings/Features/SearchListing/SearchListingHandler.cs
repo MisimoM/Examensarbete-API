@@ -30,7 +30,8 @@ internal class SearchListingHandler(ListingDbContext dbContext)
                 l.SubLocation,
                 l.Price,
                 l.AvailableFrom,
-                l.AvailableUntil
+                l.AvailableUntil,
+                l.Images.Select(img => new ListingImageResponse(img.Url, img.AltText)).ToList()
             ))
             .ToListAsync();
 
