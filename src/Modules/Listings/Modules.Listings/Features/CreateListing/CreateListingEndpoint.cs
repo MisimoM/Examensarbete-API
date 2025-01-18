@@ -9,7 +9,7 @@ internal class CreateListingEndpoint : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder builder)
     {
-        builder.MapPost("/Listings/Create", async (CreateListingRequest request, CreateListingHandler handler, CancellationToken cancellationToken) =>
+        builder.MapPost("/listings/create", async (CreateListingRequest request, CreateListingHandler handler, CancellationToken cancellationToken) =>
         {
             var result = await handler.Handle(request, cancellationToken);
 

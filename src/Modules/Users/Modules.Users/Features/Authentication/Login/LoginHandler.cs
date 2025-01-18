@@ -16,7 +16,7 @@ internal class LoginHandler(UserDbContext dbContext, IPasswordHasher passwordHas
     private readonly ITokenProvider _tokenProvider = tokenProvider;
     private readonly IValidator<LoginRequest> _validator = validator;
 
-    public async Task<LoginResponse> Handle(LoginRequest request, HttpContext httpContext)
+    public async Task<LoginResponse> Handle(LoginRequest request, HttpContext httpContext, CancellationToken cancellationToken)
     {
         var validationResult = await _validator.ValidateAsync(request);
         
@@ -26,7 +26,7 @@ internal class LoginHandler(UserDbContext dbContext, IPasswordHasher passwordHas
             throw new BadRequestException($"Validation failed: {string.Join(", ", errors)}");
         }
 
-        var user = await _dbContext.Users.SingleOrDefaultAsync(u => u.Email == request.Email);
+        var user = await _dbContext.Users.SingleOrDefaultAsync(u => u.Email == request.Email, cancellationToken);
 
         if (user is null || !_passwordHasher.Verify(request.Password, user.Password))
             throw new BadRequestException("Invalid login credentials.");
@@ -42,7 +42,7 @@ internal class LoginHandler(UserDbContext dbContext, IPasswordHasher passwordHas
         };
 
         _dbContext.RefreshTokens.Add(refreshToken);
-        await _dbContext.SaveChangesAsync();
+        await _dbContext.SaveChangesAsync(cancellationToken);
 
         CookieFactory.AppendCookie(httpContext.Response, "accessToken", accessToken, TimeSpan.FromMinutes(10));
         CookieFactory.AppendCookie(httpContext.Response, "refreshToken", refreshToken.Token, TimeSpan.FromDays(7));

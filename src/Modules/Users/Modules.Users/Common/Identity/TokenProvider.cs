@@ -29,7 +29,7 @@ internal sealed class TokenProvider(IConfiguration configuration) : ITokenProvid
         var TokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(claims),
-            Expires = DateTime.UtcNow.AddMinutes(60),
+            Expires = DateTime.UtcNow.AddMinutes(10),
             Issuer = configuration["Jwt:Issuer"],
             Audience = configuration["Jwt:Audience"],
             SigningCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256)

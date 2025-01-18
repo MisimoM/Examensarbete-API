@@ -1,0 +1,10 @@
+services:
+  
+  applicationdb:
+    image: mcr.microsoft.com/mssql/server
+
+  webapi:
+    image: ${DOCKER_REGISTRY-}webapi
+    build:
+      context: .
+      dockerfile: src/WebApi/Dockerfile

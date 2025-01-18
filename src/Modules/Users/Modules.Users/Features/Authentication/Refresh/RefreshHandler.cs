@@ -13,7 +13,7 @@ internal class RefreshHandler(UserDbContext dbContext, ITokenProvider tokenProvi
     private readonly UserDbContext _dbContext = dbContext;
     private readonly ITokenProvider _tokenProvider = tokenProvider;
 
-    public async Task<RefreshResponse> Handle(HttpContext httpContext)
+    public async Task<RefreshResponse> Handle(HttpContext httpContext, CancellationToken cancellationToken)
     {
 
         if (!httpContext.Request.Cookies.TryGetValue("refreshToken", out var refreshTokenFromCookie) || string.IsNullOrEmpty(refreshTokenFromCookie))
@@ -21,7 +21,7 @@ internal class RefreshHandler(UserDbContext dbContext, ITokenProvider tokenProvi
 
         var refreshToken = await _dbContext.RefreshTokens
                 .Include(rt => rt.User)
-                .FirstOrDefaultAsync(rt => rt.Token == refreshTokenFromCookie);
+                .FirstOrDefaultAsync(rt => rt.Token == refreshTokenFromCookie, cancellationToken);
 
         if (refreshToken is null)
             throw new BadRequestException("Invalid refresh token.");
@@ -38,7 +38,7 @@ internal class RefreshHandler(UserDbContext dbContext, ITokenProvider tokenProvi
 
         _dbContext.RefreshTokens.Remove(refreshToken);
         _dbContext.RefreshTokens.Add(newRefreshToken);
-        await _dbContext.SaveChangesAsync();
+        await _dbContext.SaveChangesAsync(cancellationToken);
 
         CookieFactory.AppendCookie(httpContext.Response, "accessToken", newAccessToken, TimeSpan.FromMinutes(10));
         CookieFactory.AppendCookie(httpContext.Response, "refreshToken", newRefreshToken.Token, TimeSpan.FromDays(7));

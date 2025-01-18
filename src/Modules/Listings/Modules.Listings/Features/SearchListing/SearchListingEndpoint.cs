@@ -9,13 +9,12 @@ internal class SearchListingEndpoint : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder builder)
     {
-        builder.MapPost("Listings/Search", async (SearchListingRequest request, SearchListingHandler searchListingHandler) =>
+        builder.MapPost("listings/search", async (SearchListingRequest request, SearchListingHandler searchListingHandler, CancellationToken cancellationToken) =>
         {
-            var response = await searchListingHandler.Handle(request);
+            var response = await searchListingHandler.Handle(request, cancellationToken);
             return Results.Ok(response);
 
         }).WithName(nameof(SearchListing))
-        .Produces<SearchListingResponse>(StatusCodes.Status200OK)
-        .Produces(StatusCodes.Status400BadRequest);
+        .Produces<SearchListingResponse>(StatusCodes.Status200OK);
     }
 }

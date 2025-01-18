@@ -7,20 +7,22 @@
     <UserSecretsId>8f0e56c8-e3a9-43e7-82ae-69bcf727507b</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..</DockerfileContext>
+    <DockerComposeProjectPath>..\..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
+    <PackageReference Include="Scalar.AspNetCore" Version="1.2.76" />
     <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Modules\Bookings\Modules.Bookings.Application\Modules.Bookings.Application.csproj" />
-    <ProjectReference Include="..\Modules\Bookings\Modules.Bookings.Infrastructure\Modules.Bookings.Infrastructure.csproj" />
+    <ProjectReference Include="..\Modules\Bookings\Modules.Bookings\Modules.Bookings.csproj" />
     <ProjectReference Include="..\Modules\Listings\Modules.Listings\Modules.Listings.csproj" />
     <ProjectReference Include="..\Modules\Users\Modules.Users\Modules.Users.csproj" />
     <ProjectReference Include="..\Shared\Shared.csproj" />

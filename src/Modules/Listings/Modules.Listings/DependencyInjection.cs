@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Modules.Listings.Communication;
 using Modules.Listings.Data;
+using Modules.Listings.Data.Seed;
 using Modules.Listings.Features.CreateListing;
 using Modules.Listings.Features.GetListingById;
 using Modules.Listings.Features.SearchListing;
@@ -44,5 +45,13 @@ public static class DependencyInjection
         }
 
         return app;
+    }
+
+    public static void MigrateAndSeedListing(this WebApplication app)
+    {
+        var scope = app.Services.CreateScope();
+        var listingContext = scope.ServiceProvider.GetRequiredService<ListingDbContext>();
+        listingContext.Database.Migrate();
+        ListingSeeder.Seed(listingContext);
     }
 }
