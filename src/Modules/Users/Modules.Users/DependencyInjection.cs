@@ -12,6 +12,7 @@ using Shared;
 using Modules.Users.Features.Authentication.Refresh;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Modules.Users.Data.Seed;
 
 namespace Modules.Users;
 
@@ -64,5 +65,14 @@ public static class DependencyInjection
         }
 
         return app;
+    }
+
+    public static void MigrateAndSeedUser(this WebApplication app)
+    {
+        var scope = app.Services.CreateScope();
+        var userContext = scope.ServiceProvider.GetRequiredService<UserDbContext>();
+        var passwordHasher = scope.ServiceProvider.GetRequiredService<IPasswordHasher>();
+        userContext.Database.Migrate();
+        UserSeeder.Seed(userContext, passwordHasher);
     }
 }

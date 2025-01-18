@@ -9,9 +9,9 @@ internal class LoginEndpoint : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder builder)
     {
-        builder.MapPost("/auth/login", async (LoginRequest request, LoginHandler loginHandler, HttpContext httpContext) =>
+        builder.MapPost("/auth/login", async (LoginRequest request, LoginHandler loginHandler, HttpContext httpContext, CancellationToken cancellationToken) =>
         {
-            var response = await loginHandler.Handle(request, httpContext);
+            var response = await loginHandler.Handle(request, httpContext, cancellationToken);
             return Results.Ok(response);
 
         }).WithName(nameof(Login))

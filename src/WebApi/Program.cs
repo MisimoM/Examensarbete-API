@@ -1,17 +1,18 @@
-using Modules.Bookings.Application;
-using Modules.Bookings.Infrastructure;
+using Modules.Bookings;
 using Modules.Listings;
 using Modules.Users;
+using Scalar.AspNetCore;
 using Serilog;
 using Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddOpenApi();
+
 builder.Services.AddSharedServices();
 builder.Services.AddUserModule(builder.Configuration);
 builder.Services.AddListingModule(builder.Configuration);
-builder.Services.AddBookingModuleInfrastructure(builder.Configuration);
-builder.Services.AddBookingModuleApplication(builder.Configuration);
+builder.Services.AddBookingModule(builder.Configuration);
 
 builder.Host.UseSerilog((context, configuration) =>
     configuration.ReadFrom.Configuration(context.Configuration));
@@ -29,6 +30,16 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    app.MigrateAndSeedUser();
+    app.MigrateAndSeedListing();
+    app.MigrateBooking();
+
+    app.MapOpenApi();
+    app.MapScalarApiReference();
+}
 
 app.UseExceptionHandler();
 app.UseSerilogRequestLogging();

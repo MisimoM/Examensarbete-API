@@ -11,7 +11,7 @@ internal class CreateListingHandler(ListingDbContext dbContext, IValidator<Creat
     private readonly IValidator<CreateListingRequest> _validator = validator;
     public async Task<CreateListingResponse> Handle(CreateListingRequest request, CancellationToken cancellationToken)
     {
-        var validationResult = await _validator.ValidateAsync(request);
+        var validationResult = await _validator.ValidateAsync(request, cancellationToken);
 
         if (!validationResult.IsValid)
         {

@@ -9,14 +9,14 @@ internal class GetListingByIdHandler(ListingDbContext dbContext)
 {
     private readonly ListingDbContext _dbContext = dbContext;
 
-    public async Task<GetListingByIdResponse> Handle(GetListingByIdRequest request)
+    public async Task<GetListingByIdResponse> Handle(GetListingByIdRequest request, CancellationToken cancellationToken)
     {
         
         var listing = await _dbContext.Listings
             .AsNoTracking()
             .Where(l => l.Id == request.Id)
             .Include(l => l.Images)
-            .FirstOrDefaultAsync();
+            .FirstOrDefaultAsync(cancellationToken);
 
         if (listing is null)
             throw new NotFoundException($"No listing with the ID {request.Id} was found.");

@@ -1,0 +1,24 @@
+services:
+  applicationdb:
+    container_name: applicationdb
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Admin123!
+    restart: always
+    ports:
+      - "1433:1433"
+
+  webapi:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      - ConnectionStrings__DefaultConnection=Server=applicationdb;Database=ApplicationDb;User Id=sa;Password=Admin123!;Encrypt=False;TrustServerCertificate=True
+    depends_on:
+      - applicationdb
+    ports:
+      - "6000:8080"
+      - "6060:8081"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro

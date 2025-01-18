@@ -7,7 +7,7 @@ internal class SearchListingHandler(ListingDbContext dbContext)
 {
     private readonly ListingDbContext _dbContext = dbContext;
 
-    public async Task <List<SearchListingResponse>> Handle(SearchListingRequest request)
+    public async Task <List<SearchListingResponse>> Handle(SearchListingRequest request, CancellationToken cancellationToken)
     {
         var query = _dbContext.Listings.AsQueryable();
 
@@ -33,7 +33,7 @@ internal class SearchListingHandler(ListingDbContext dbContext)
                 l.AvailableUntil,
                 l.Images.Select(img => new ListingImageResponse(img.Url, img.AltText)).ToList()
             ))
-            .ToListAsync();
+            .ToListAsync(cancellationToken);
 
         return results;
     }

@@ -9,15 +9,14 @@ internal class GetListingByIdEndpoint : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder builder)
     {
-        builder.MapGet("Listings/GetById/{id:guid}", async (Guid id, GetListingByIdHandler handler) =>
+        builder.MapGet("listings/getbyid/{id:guid}", async (Guid id, GetListingByIdHandler handler, CancellationToken cancellationToken) =>
         {
-            var request = new GetListingByIdRequest (id);
-            var response = await handler.Handle(request);
+            var request = new GetListingByIdRequest(id);
+            var response = await handler.Handle(request, cancellationToken);
             return Results.Ok(response);
 
         }).WithName(nameof(GetListingById))
         .Produces<GetListingByIdResponse>(StatusCodes.Status200OK)
-        .Produces(StatusCodes.Status404NotFound)
-        .Produces(StatusCodes.Status400BadRequest);
+        .Produces(StatusCodes.Status404NotFound);
     }
 }
