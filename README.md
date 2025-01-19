@@ -3,22 +3,18 @@
 Examensprojektet är en uthyrningsplattform för bostäder i Halland, med fokus på att hantera allt från användarautentisering till bokningar och betalningar.
 Backend-API:t är byggt med ASP.NET Core, och frontend-delen är utvecklad med React/Next.js.
 
-Plattformen är strukturerad för att möjliggöra både enkel vidareutveckling och skalbarhet.
 Du hittar länken till frontend-repot här: https://github.com/MisimoM/Examensarbete-UI
 
-## Syfte med examensarbetet
-Målet med examensarbetet är att bygga en fungerande uthyrningsplattform för bostäder i Halland, vilket ger praktisk erfarenhet inom systemdesign, API-utveckling och fullstackutveckling.
-Projektet använder en modular monolith-arkitektur och Vertical Slice Architecture för att skapa skalbara och underhållbara lösningar, samt implementera moderna utvecklingsprinciper och teknologier som används i branschen.
+## Målet med examensarbetet
+Målet med examensarbetet är att bygga en fungerande applikation, vilket ger praktisk erfarenhet inom systemdesign, API-utveckling och fullstackutveckling.
+Projektet använder en modular monolith-arkitektur och Vertical Slice Architecture för att skapa skalbara lösningar, samt implementera moderna utvecklingsprinciper.
 
 ## Arkitektur och uppbyggnad
 Projektet är byggt som en modular monolith, en arkitektur som kombinerar enkelheten hos en monolit med möjligheten att i framtiden bryta ut moduler till separata microservices.
 Applikationen är indelad i tydliga moduler med egna ansvarsområden, vilket gör den både lätt att förstå och utveckla.
 
 För att separera data och ansvarsområden använder varje modul sitt eget databasschema i en gemensam databas.
-Detta gör det möjligt att hantera modulernas data isolerat, samtidigt som hela applikationen körs som en monolitisk enhet. Varje modul har också sina egna migrationer och interna strukturer.
-
-Jag valde att använda en modular monolith för att få erfarenhet av en modern och avancerad arkitektur samtidigt som jag utmanade mig själv med ett projekt som är både lärorikt och relevant för framtida utveckling.
-Genom detta projekt har jag fått insikt i både fördelar och begränsningar med modular monolith och hur det kan underlätta övergången till microservices om behovet skulle uppstå.
+Denna uppdelning gör datan mer organiserad och enklare att arbeta med, eftersom varje modul hanterar sin egen data utan att påverka andra.
 
 För att skapa enkla och effektiva API-endpoints använder jag Minimal APIs, vilket gör koden mer kompakt och lättläst.
 
