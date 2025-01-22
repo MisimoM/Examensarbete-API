@@ -5,7 +5,7 @@ using Shared.Exceptions;
 
 namespace Modules.Listings.Features.CreateListing;
 
-internal class CreateListingHandler(ListingDbContext dbContext, IValidator<CreateListingRequest> validator)
+public class CreateListingHandler(ListingDbContext dbContext, IValidator<CreateListingRequest> validator)
 {
     private readonly ListingDbContext _dbContext = dbContext;
     private readonly IValidator<CreateListingRequest> _validator = validator;

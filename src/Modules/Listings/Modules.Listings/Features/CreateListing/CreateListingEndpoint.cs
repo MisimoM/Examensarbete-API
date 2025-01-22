@@ -5,7 +5,7 @@ using Shared;
 
 namespace Modules.Listings.Features.CreateListing;
 
-internal class CreateListingEndpoint : IEndpoint
+public class CreateListingEndpoint : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder builder)
     {

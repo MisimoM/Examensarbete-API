@@ -9,7 +9,7 @@ using System.Security.Claims;
 
 namespace Modules.Bookings.Features.CreateBooking;
 
-internal class CreateBookingHandler(BookingDbContext dbContext, IListingService listingService, IValidator<CreateBookingRequest> validator, IHttpContextAccessor httpContextAccessor)
+public class CreateBookingHandler(BookingDbContext dbContext, IListingService listingService, IValidator<CreateBookingRequest> validator, IHttpContextAccessor httpContextAccessor)
 {
     private readonly BookingDbContext _dbContext = dbContext;
     private readonly IListingService _listingService = listingService;

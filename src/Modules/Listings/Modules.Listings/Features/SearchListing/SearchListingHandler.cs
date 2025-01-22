@@ -3,7 +3,7 @@ using Modules.Listings.Data;
 
 namespace Modules.Listings.Features.SearchListing;
 
-internal class SearchListingHandler(ListingDbContext dbContext)
+public class SearchListingHandler(ListingDbContext dbContext)
 {
     private readonly ListingDbContext _dbContext = dbContext;
 

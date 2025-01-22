@@ -53,3 +53,5 @@ app.MapListingEndpoints();
 app.MapBookingEndpoints();
 
 app.Run();
+
+public partial class Program { }

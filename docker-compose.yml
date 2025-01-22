@@ -1,7 +1,7 @@
 services:
   
   applicationdb:
-    image: mcr.microsoft.com/mssql/server
+    image: mcr.microsoft.com/mssql/server:2022-latest
 
   webapi:
     image: ${DOCKER_REGISTRY-}webapi

@@ -1,6 +1,6 @@
 ﻿namespace Modules.Listings.Features.SearchListing;
 
-internal record SearchListingResponse (
+public record SearchListingResponse (
     Guid Id,
     string Title,
     string AccommodationType,
