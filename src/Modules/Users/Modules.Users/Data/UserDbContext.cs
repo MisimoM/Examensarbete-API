@@ -2,7 +2,7 @@
 using Modules.Users.Entities;
 namespace Modules.Users.Data;
 
-internal class UserDbContext : DbContext
+public class UserDbContext : DbContext
 {
 
     public UserDbContext(DbContextOptions<UserDbContext> options)

@@ -5,7 +5,7 @@ using Shared;
 
 namespace Modules.Users.Features.Authentication.Login;
 
-internal class LoginEndpoint : IEndpoint
+public class LoginEndpoint : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder builder)
     {

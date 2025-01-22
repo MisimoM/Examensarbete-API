@@ -3,7 +3,7 @@ using Modules.Bookings.Entities;
 
 namespace Modules.Bookings.Data;
 
-internal class BookingDbContext : DbContext
+public class BookingDbContext : DbContext
 {
     public BookingDbContext(DbContextOptions options) : base(options)
     {

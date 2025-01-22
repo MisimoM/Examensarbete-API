@@ -9,7 +9,7 @@ using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegiste
 
 namespace Modules.Users.Common.Identity;
 
-internal sealed class TokenProvider(IConfiguration configuration) : ITokenProvider
+public sealed class TokenProvider(IConfiguration configuration) : ITokenProvider
 {
     public string CreateAccessToken(User user)
     {

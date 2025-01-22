@@ -5,7 +5,7 @@ using Shared.Exceptions;
 
 namespace Modules.Listings.Features.GetListingById;
 
-internal class GetListingByIdHandler(ListingDbContext dbContext)
+public class GetListingByIdHandler(ListingDbContext dbContext)
 {
     private readonly ListingDbContext _dbContext = dbContext;
 

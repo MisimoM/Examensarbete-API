@@ -2,7 +2,7 @@
 
 namespace Modules.Users.Common.Identity;
 
-internal interface ITokenProvider
+public interface ITokenProvider
 {
     string CreateAccessToken(User user);
     string CreateRefreshToken();

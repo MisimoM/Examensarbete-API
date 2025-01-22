@@ -5,7 +5,7 @@ using Shared;
 
 namespace Modules.Listings.Features.SearchListing;
 
-internal class SearchListingEndpoint : IEndpoint
+public class SearchListingEndpoint : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder builder)
     {
