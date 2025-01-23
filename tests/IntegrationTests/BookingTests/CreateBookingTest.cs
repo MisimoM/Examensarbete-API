@@ -72,7 +72,7 @@ public class CreateBookingTest : BaseIntegrationTest
         var request = new CreateBookingRequest(listing.Id, DateTime.UtcNow.AddDays(1), DateTime.UtcNow.AddDays(5));
 
         // Act
-        var response = await client.PostAsJsonAsync("/bookings/create", request);
+        var response = await client.PostAsJsonAsync("/bookings", request);
 
         // Assert
         response.EnsureSuccessStatusCode();
@@ -93,11 +93,10 @@ public class CreateBookingTest : BaseIntegrationTest
         var token = GenerateJwtToken("admin");
         client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
 
-        // Skicka en ogiltig request där ListingId saknas
         var request = new CreateBookingRequest(Guid.Empty, DateTime.UtcNow.AddDays(1), DateTime.UtcNow.AddDays(5));
 
         // Act
-        var response = await client.PostAsJsonAsync("/bookings/create", request);
+        var response = await client.PostAsJsonAsync("/bookings", request);
 
         // Assert
         Assert.Equal(System.Net.HttpStatusCode.BadRequest, response.StatusCode);
@@ -115,7 +114,7 @@ public class CreateBookingTest : BaseIntegrationTest
         var request = new CreateBookingRequest(nonExistentListingId, DateTime.UtcNow.AddDays(1), DateTime.UtcNow.AddDays(5));
 
         // Act
-        var response = await client.PostAsJsonAsync("/bookings/create", request);
+        var response = await client.PostAsJsonAsync("/bookings", request);
 
         // Assert
         Assert.Equal(System.Net.HttpStatusCode.NotFound, response.StatusCode);
@@ -162,7 +161,7 @@ public class CreateBookingTest : BaseIntegrationTest
         var request = new CreateBookingRequest(listing.Id, DateTime.UtcNow.AddDays(1), DateTime.UtcNow.AddDays(5));
 
         // Act
-        var response = await client.PostAsJsonAsync("/bookings/create", request);
+        var response = await client.PostAsJsonAsync("/bookings", request);
 
         // Assert
         Assert.Equal(System.Net.HttpStatusCode.Conflict, response.StatusCode);
