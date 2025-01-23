@@ -9,7 +9,7 @@ public class GetListingByIdEndpoint : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder builder)
     {
-        builder.MapGet("listings/getbyid/{id:guid}", async (Guid id, GetListingByIdHandler handler, CancellationToken cancellationToken) =>
+        builder.MapGet("/listings/{id:guid}", async (Guid id, GetListingByIdHandler handler, CancellationToken cancellationToken) =>
         {
             var request = new GetListingByIdRequest(id);
             var response = await handler.Handle(request, cancellationToken);
