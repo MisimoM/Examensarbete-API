@@ -19,40 +19,40 @@ public class SearchListingTest : BaseIntegrationTest
     {
         // Arrange
         var listings = new List<Listing>
+    {
+        new Listing
         {
-            new Listing
+            Id = Guid.NewGuid(),
+            Title = "Mysigt Hus",
+            Description = "Mysigt hus",
+            AccommodationType = "House",
+            MainLocation = "Halmstads kommun",
+            SubLocation = "Steninge",
+            Price = 1500,
+            AvailableFrom = DateTime.UtcNow.AddDays(1),
+            AvailableUntil = DateTime.UtcNow.AddMonths(1),
+            Images = new List<ListingImage>
             {
-                Id = Guid.NewGuid(),
-                Title = "Mysigt Hus",
-                Description = "Mysigt hus",
-                AccommodationType = "House",
-                MainLocation = "Halmstads kommun",
-                SubLocation = "Steninge",
-                Price = 1500,
-                AvailableFrom = DateTime.UtcNow.AddDays(1),
-                AvailableUntil = DateTime.UtcNow.AddMonths(1),
-                Images = new List<ListingImage>
-                {
-                    new ListingImage { Url = "https://example.com/image1.jpg", AltText = "Hus" }
-                }
-            },
-            new Listing
-            {
-                Id = Guid.NewGuid(),
-                Title = "Mysig stuga",
-                Description = "Mysig stuga",
-                AccommodationType = "Cottage",
-                MainLocation = "Falkenbergs kommun",
-                SubLocation = "Skrea Strand",
-                Price = 1200,
-                AvailableFrom = DateTime.UtcNow.AddDays(2),
-                AvailableUntil = DateTime.UtcNow.AddMonths(2),
-                Images = new List<ListingImage>
-                {
-                    new ListingImage { Url = "https://example.com/image2.jpg", AltText = "Stuga" }
-                }
+                new ListingImage { Url = "https://example.com/image1.jpg", AltText = "Hus" }
             }
-        };
+        },
+        new Listing
+        {
+            Id = Guid.NewGuid(),
+            Title = "Mysig stuga",
+            Description = "Mysig stuga",
+            AccommodationType = "Cottage",
+            MainLocation = "Falkenbergs kommun",
+            SubLocation = "Skrea Strand",
+            Price = 1200,
+            AvailableFrom = DateTime.UtcNow.AddDays(2),
+            AvailableUntil = DateTime.UtcNow.AddMonths(2),
+            Images = new List<ListingImage>
+            {
+                new ListingImage { Url = "https://example.com/image2.jpg", AltText = "Stuga" }
+            }
+        }
+    };
 
         ListingDbContext.Listings.AddRange(listings);
         await ListingDbContext.SaveChangesAsync();
@@ -60,9 +60,9 @@ public class SearchListingTest : BaseIntegrationTest
         var client = _factory.CreateClient();
 
         // Act
-        var request = new SearchListingRequest("Halmstads kommun", "Steninge", "House");
+        var url = $"/listings?mainLocation=Halmstads%20kommun&subLocation=Steninge&accommodationType=House";
 
-        var response = await client.PostAsJsonAsync("/listings/search", request);
+        var response = await client.GetAsync(url);
 
         // Assert
         response.EnsureSuccessStatusCode();
@@ -82,9 +82,9 @@ public class SearchListingTest : BaseIntegrationTest
         var client = _factory.CreateClient();
 
         // Act
-        var request = new SearchListingRequest("Nonexistent", "NoMatch", "Unknown");
+        var url = $"/listings?mainLocation=Nonexistent&subLocation=NoMatch&accommodationType=Unknown";
 
-        var response = await client.PostAsJsonAsync("/listings/search", request);
+        var response = await client.GetAsync(url);
 
         // Assert
         response.EnsureSuccessStatusCode();

@@ -16,7 +16,7 @@ public class CreateUserHandler(UserDbContext dbContext, IPasswordHasher password
 
     public async Task<CreateUserResponse> Handle(CreateUserRequest request, CancellationToken cancellationToken)
     {
-        var validationResult = await _validator.ValidateAsync(request);
+        var validationResult = await _validator.ValidateAsync(request, cancellationToken);
 
         if (!validationResult.IsValid)
         {
@@ -27,7 +27,7 @@ public class CreateUserHandler(UserDbContext dbContext, IPasswordHasher password
         var existingEmail = await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == request.Email, cancellationToken);
 
         if (existingEmail is not null)
-            throw new ConflictException("Email already exists");
+            throw new ConflictException($"The email address '{request.Email}' is already in use.");
 
         var user = new User
         {
