@@ -35,7 +35,7 @@ public class CreateListingTests : BaseIntegrationTest
 
         // Act
         var client = _factory.CreateClient();
-        var response = await client.PostAsJsonAsync("/listings/create", request);
+        var response = await client.PostAsJsonAsync("/listings", request);
 
         // Assert
         response.EnsureSuccessStatusCode();

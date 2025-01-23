@@ -42,7 +42,7 @@ public class GetListingByIdTest : BaseIntegrationTest
         var client = _factory.CreateClient();
 
         // Act
-        var response = await client.GetAsync($"/listings/getbyid/{listing.Id}");
+        var response = await client.GetAsync($"/listings/{listing.Id}");
 
         // Assert
         response.EnsureSuccessStatusCode();
@@ -65,7 +65,7 @@ public class GetListingByIdTest : BaseIntegrationTest
         var client = _factory.CreateClient();
 
         // Act
-        var response = await client.GetAsync($"/listings/getbyid/{nonExistentId}");
+        var response = await client.GetAsync($"/listings/{nonExistentId}");
 
         // Assert
         Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);

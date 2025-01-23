@@ -14,6 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Modules.Users.Data.Seed;
 using Modules.Users.Features.Users.CreateUser;
+using Modules.Users.Features.Users.UpdateUser;
 
 namespace Modules.Users;
 
@@ -51,6 +52,7 @@ public static class DependencyInjection
         services.AddScoped<RefreshHandler>();
 
         services.AddScoped<CreateUserHandler>();
+        services.AddScoped<UpdateUserHandler>(); 
 
         return services;
     }
