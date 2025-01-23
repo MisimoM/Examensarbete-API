@@ -9,7 +9,7 @@ public class SearchListingEndpoint : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder builder)
     {
-        builder.MapPost("listings/search", async (SearchListingRequest request, SearchListingHandler searchListingHandler, CancellationToken cancellationToken) =>
+        builder.MapGet("listings", async ([AsParameters] SearchListingRequest request, SearchListingHandler searchListingHandler, CancellationToken cancellationToken) =>
         {
             var response = await searchListingHandler.Handle(request, cancellationToken);
             return Results.Ok(response);

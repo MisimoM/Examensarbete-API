@@ -9,7 +9,7 @@ public class CreateBookingEndpoint : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder builder)
     {
-        builder.MapPost("bookings/create", async (CreateBookingRequest request, CreateBookingHandler createBookingHandler, CancellationToken cancellationToken) =>
+        builder.MapPost("/bookings", async (CreateBookingRequest request, CreateBookingHandler createBookingHandler, CancellationToken cancellationToken) =>
         {
             var response = await createBookingHandler.Handle(request, cancellationToken);
             
