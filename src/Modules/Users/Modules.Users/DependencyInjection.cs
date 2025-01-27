@@ -15,6 +15,7 @@ using System.Text;
 using Modules.Users.Data.Seed;
 using Modules.Users.Features.Users.CreateUser;
 using Modules.Users.Features.Users.UpdateUser;
+using Modules.Users.Features.Users.DeleteUser;
 
 namespace Modules.Users;
 
@@ -52,7 +53,8 @@ public static class DependencyInjection
         services.AddScoped<RefreshHandler>();
 
         services.AddScoped<CreateUserHandler>();
-        services.AddScoped<UpdateUserHandler>(); 
+        services.AddScoped<UpdateUserHandler>();
+        services.AddScoped<DeleteUserHandler>();
 
         return services;
     }
