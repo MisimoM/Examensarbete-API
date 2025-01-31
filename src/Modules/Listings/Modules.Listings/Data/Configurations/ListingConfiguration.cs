@@ -10,6 +10,9 @@ internal class ListingConfiguration : IEntityTypeConfiguration<Listing>
     {
         builder.HasKey(l => l.Id);
 
+        builder.Property(l => l.HostId)
+            .IsRequired();
+
         builder.Property(l => l.Title)
                .IsRequired()
                .HasMaxLength(200);

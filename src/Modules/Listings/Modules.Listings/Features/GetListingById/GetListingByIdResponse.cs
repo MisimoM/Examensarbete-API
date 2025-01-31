@@ -2,6 +2,7 @@
 
 public record GetListingByIdResponse(
     Guid Id,
+    Guid HostId,
     string Title,
     string Description,
     string AccommodationType,
@@ -13,3 +14,5 @@ public record GetListingByIdResponse(
     List<ListingImageResponse> Images);
 
 public record ListingImageResponse(string Url, string AltText);
+
+public record HostResponse(string Name, string Email, string ProfileImage);

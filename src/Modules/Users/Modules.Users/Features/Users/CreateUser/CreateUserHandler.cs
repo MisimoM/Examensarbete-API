@@ -30,13 +30,12 @@ public class CreateUserHandler(UserDbContext dbContext, IPasswordHasher password
             throw new ConflictException($"The email address '{request.Email}' is already in use.");
 
         var user = new User
-        {
-            Id = Guid.NewGuid(),
-            Name = request.Name,
-            Email = request.Email,
-            Role = UserRole.Customer.ToString(),
-            Password = _passwordHasher.Hash(request.Password)
-        };
+        (
+            request.Name,
+            request.Email,
+            UserRole.Customer.ToString(),
+            _passwordHasher.Hash(request.Password)
+        );
 
         _dbContext.Users.Add(user);
         await _dbContext.SaveChangesAsync(cancellationToken);

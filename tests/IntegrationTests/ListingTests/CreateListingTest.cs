@@ -1,5 +1,10 @@
-﻿using Modules.Listings.Dtos;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Modules.Listings.Dtos;
 using Modules.Listings.Features.CreateListing;
+using Modules.Users.Common.Enums;
+using Modules.Users.Common.Helpers;
+using Modules.Users.Common.Identity;
+using Modules.Users.Entities;
 using System.Net.Http.Json;
 
 namespace IntegrationTests.ListingTests;
@@ -12,6 +17,24 @@ public class CreateListingTests : BaseIntegrationTest
         : base(factory)
     {
         _factory = factory;
+    }
+
+    private string GenerateJwtToken(string username)
+    {
+        var tokenProvider = _factory.Services.GetRequiredService<ITokenProvider>();
+        var passwordHasher = _factory.Services.GetRequiredService<IPasswordHasher>();
+
+        var user = new User
+        (
+            "Admin User",
+            "admin@admin.com",
+            UserRole.Admin.ToString(),
+            passwordHasher.Hash("Admin123")
+        );
+
+        var token = tokenProvider.CreateAccessToken(user);
+
+        return token;
     }
 
     [Fact]
@@ -32,9 +55,13 @@ public class CreateListingTests : BaseIntegrationTest
                 new ListingImageDto ( Url: "https://example.com/image1.jpg", AltText: "Hus" )
             }
         );
+        
+        var client = _factory.CreateClient();
+        var token = GenerateJwtToken("admin");
+
+        client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
 
         // Act
-        var client = _factory.CreateClient();
         var response = await client.PostAsJsonAsync("/listings", request);
 
         // Assert

@@ -10,16 +10,24 @@ internal class UserSeeder
     {
         if (!dbContext.Users.Any())
         {
-            var user = new User
-            {
-                Id = Guid.NewGuid(),
-                Name = "Admin User",
-                Email = "admin@admin.com",
-                Password = passwordHasher.Hash("Admin123"),
-                Role = UserRole.Admin.ToString()
-            };
+            var adminUser = new User
+            (
+                "Admin User",
+                "admin@admin.com",
+                passwordHasher.Hash("Admin123"),
+                UserRole.Admin.ToString()
+            );
 
-            dbContext.Users.Add(user);
+            var hostUser = new User
+            (
+                Guid.Parse("d3b07384-d9a9-4e6b-a0b9-2f084bc16961"),
+                "Host User",
+                "host@host.com",
+                passwordHasher.Hash("Host123"),
+                UserRole.Host.ToString()
+            );
+
+            dbContext.Users.AddRange(adminUser, hostUser);
             dbContext.SaveChanges();
         }
     }

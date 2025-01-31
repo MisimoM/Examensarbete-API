@@ -9,7 +9,7 @@ public class UpdateUserEndpoint : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder builder)
     {
-        builder.MapPut("/Users/{id:guid}", async (Guid id, UpdateUserRequest request, UpdateUserHandler updateUserHandler, CancellationToken cancellationToken) =>
+        builder.MapPut("/users/{id:guid}", async (Guid id, UpdateUserRequest request, UpdateUserHandler updateUserHandler, CancellationToken cancellationToken) =>
         {
             var response = await updateUserHandler.Handle(id, request, cancellationToken);
 

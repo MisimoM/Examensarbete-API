@@ -16,6 +16,8 @@ using Modules.Users.Data.Seed;
 using Modules.Users.Features.Users.CreateUser;
 using Modules.Users.Features.Users.UpdateUser;
 using Modules.Users.Features.Users.DeleteUser;
+using Modules.Users.Communication;
+using Modules.Users.Common.Enums;
 
 namespace Modules.Users;
 
@@ -42,12 +44,17 @@ public static class DependencyInjection
                     };
                 });
 
-        services.AddAuthorization();
+        services.AddAuthorizationBuilder()
+            .AddPolicy("Customer", policy => policy.RequireRole(UserRole.Customer.ToString(), UserRole.Host.ToString(), UserRole.Admin.ToString()))
+            .AddPolicy("Host", policy => policy.RequireRole(UserRole.Host.ToString(), UserRole.Admin.ToString()))
+            .AddPolicy("Admin", policy => policy.RequireRole(UserRole.Admin.ToString()));
 
         services.AddValidatorsFromAssembly(Assembly.Load("Modules.Users"));
 
         services.AddSingleton<IPasswordHasher, PasswordHasher>();
         services.AddSingleton<ITokenProvider, TokenProvider>();
+
+        services.AddScoped<IUserService, UserService>();
 
         services.AddScoped<LoginHandler>();
         services.AddScoped<RefreshHandler>();

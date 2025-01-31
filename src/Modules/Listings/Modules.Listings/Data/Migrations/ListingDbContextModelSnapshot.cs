@@ -45,6 +45,9 @@ namespace Modules.Listings.Data.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
 
+                    b.Property<Guid>("HostId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("MainLocation")
                         .IsRequired()
                         .HasMaxLength(200)

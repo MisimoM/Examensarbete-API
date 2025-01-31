@@ -16,7 +16,7 @@ public class CreateBookingEndpoint : IEndpoint
             return Results.Created($"/bookings/{response.Id}", response);
 
         })
-        .RequireAuthorization()
+        .RequireAuthorization("Customer")
         .WithName(nameof(CreateBooking))
         .Produces<CreateBookingResponse>(StatusCodes.Status201Created)
         .Produces(StatusCodes.Status400BadRequest)

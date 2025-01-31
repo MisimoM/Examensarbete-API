@@ -2,6 +2,7 @@
 
 public record SearchListingResponse (
     Guid Id,
+    Guid HostId,
     string Title,
     string AccommodationType,
     string MainLocation,

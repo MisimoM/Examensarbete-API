@@ -12,7 +12,7 @@ using Modules.Listings.Data;
 namespace Modules.Listings.Data.Migrations
 {
     [DbContext(typeof(ListingDbContext))]
-    [Migration("20250117110210_InitialCreate")]
+    [Migration("20250129094801_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -47,6 +47,9 @@ namespace Modules.Listings.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
+
+                    b.Property<Guid>("HostId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("MainLocation")
                         .IsRequired()

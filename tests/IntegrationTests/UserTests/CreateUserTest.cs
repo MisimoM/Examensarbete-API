@@ -41,13 +41,12 @@ public class CreateUserTest : BaseIntegrationTest
     {
         // Arrange
         var existingUser = new User
-        {
-            Id = Guid.NewGuid(),
-            Name = "Jane Doe",
-            Email = "existinguser@example.com",
-            Role = UserRole.Customer.ToString(),
-            Password = "Password123"
-        };
+        (
+            "Jane Doe",
+            "existinguser@example.com",
+            UserRole.Customer.ToString(),
+            "Password123"
+        );
 
         UserDbContext.Users.Add(existingUser);
         await UserDbContext.SaveChangesAsync();
