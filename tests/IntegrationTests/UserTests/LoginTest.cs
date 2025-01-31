@@ -20,14 +20,13 @@ public class LoginTest : BaseIntegrationTest
         // Arrange
         var request = new LoginRequest("test@test.com", "testpassword");
 
-        var hashedPassword = PasswordHasher.Hash(request.Password);
         var user = new User
-        {
-            Name = "Test User",
-            Email = request.Email,
-            Password = hashedPassword,
-            Role = UserRole.Admin.ToString()
-        };
+        (
+            "Test User",
+            request.Email,
+            UserRole.Admin.ToString(),
+            PasswordHasher.Hash(request.Password)
+        );
         UserDbContext.Users.Add(user);
         await UserDbContext.SaveChangesAsync();
 

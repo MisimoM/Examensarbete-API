@@ -24,6 +24,7 @@ public class SearchListingHandler(ListingDbContext dbContext)
             .Select(l => new SearchListingResponse
             (
                 l.Id,
+                l.HostId,
                 l.Title,
                 l.AccommodationType,
                 l.MainLocation,

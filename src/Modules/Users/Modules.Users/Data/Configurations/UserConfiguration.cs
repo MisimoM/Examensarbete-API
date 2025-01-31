@@ -23,5 +23,11 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 
         entity.Property(u => u.Password)
               .IsRequired();
+
+        entity.Property(u => u.ProfileImage)
+              .HasMaxLength(500);
+
+        entity.Property(u => u.CreatedAt)
+              .IsRequired();
     }
 }

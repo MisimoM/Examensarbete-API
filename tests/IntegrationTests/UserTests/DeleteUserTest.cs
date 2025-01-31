@@ -23,13 +23,12 @@ public class DeleteUserTest : BaseIntegrationTest
         var client = _factory.CreateClient();
 
         var userToDelete = new User
-        {
-            Id = Guid.NewGuid(),
-            Name = "John Delete",
-            Email = "john.delete@example.com",
-            Role = UserRole.Customer.ToString(),
-            Password = "Password123"
-        };
+        (
+            "John Delete",
+            "john.delete@example.com",
+            UserRole.Customer.ToString(),
+            "Password123"
+        );
 
         UserDbContext.Users.Add(userToDelete);
         await UserDbContext.SaveChangesAsync();

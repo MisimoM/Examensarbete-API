@@ -14,6 +14,7 @@ internal class ListingSeeder
             var listing1 = new Listing
             {
                 Id = listing1Id,
+                HostId = Guid.Parse("d3b07384-d9a9-4e6b-a0b9-2f084bc16961"),
                 Title = "Liten stuga vid havet",
                 Description = "Mysig stuga",
                 AccommodationType = "Cottage",
@@ -27,6 +28,7 @@ internal class ListingSeeder
             var listing2 = new Listing
             {
                 Id = listing2Id,
+                HostId = Guid.Parse("d3b07384-d9a9-4e6b-a0b9-2f084bc16961"),
                 Title = "Mysigt hus i Falkenberg",
                 Description = "Mysigt hus",
                 AccommodationType = "House",

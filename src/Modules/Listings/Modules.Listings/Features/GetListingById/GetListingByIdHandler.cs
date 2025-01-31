@@ -23,6 +23,7 @@ public class GetListingByIdHandler(ListingDbContext dbContext)
 
         return new GetListingByIdResponse(
             listing.Id,
+            listing.HostId,
             listing.Title,
             listing.Description,
             listing.AccommodationType,

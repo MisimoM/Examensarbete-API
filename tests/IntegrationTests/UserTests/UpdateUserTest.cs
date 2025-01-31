@@ -22,13 +22,12 @@ public class UpdateUserTest : BaseIntegrationTest
     {
         // Arrange
         var existingUser = new User
-        {
-            Id = Guid.NewGuid(),
-            Name = "Alice Johnson",
-            Email = "alice.johnson@example.com",
-            Password = "Password123",
-            Role = UserRole.Customer.ToString()
-        };
+        (
+            "Alice Johnson",
+            "alice.johnson@example.com",
+            "Password123",
+            UserRole.Customer.ToString()
+        );
 
         UserDbContext.Users.Add(existingUser);
         await UserDbContext.SaveChangesAsync();
@@ -70,22 +69,20 @@ public class UpdateUserTest : BaseIntegrationTest
     {
         // Arrange
         var user1 = new User
-        {
-            Id = Guid.NewGuid(),
-            Name = "Charlie Brown",
-            Email = "charlie.brown@example.com",
-            Password = "Password123",
-            Role = UserRole.Customer.ToString()
-        };
+        (
+            "Charlie Brown",
+            "charlie.brown@example.com",
+            "Password123",
+            UserRole.Customer.ToString()
+        );
 
         var user2 = new User
-        {
-            Id = Guid.NewGuid(),
-            Name = "Daisy Smith",
-            Email = "daisy.smith@example.com",
-            Password = "Password123",
-            Role = UserRole.Customer.ToString()
-        };
+        (
+            "Daisy Smith",
+            "daisy.smith@example.com",
+            "Password123",
+            UserRole.Customer.ToString()
+        );
 
         UserDbContext.Users.AddRange(user1, user2);
         await UserDbContext.SaveChangesAsync();
@@ -105,13 +102,12 @@ public class UpdateUserTest : BaseIntegrationTest
     {
         // Arrange
         var existingUser = new User
-        {
-            Id = Guid.NewGuid(),
-            Name = "Eve Adams",
-            Email = "eve.adams@example.com",
-            Password = "Password123",
-            Role = UserRole.Customer.ToString()
-        };
+        (
+            "Eve Adams",
+            "eve.adams@example.com",
+            "Password123",
+            UserRole.Customer.ToString()
+        );
 
         UserDbContext.Users.Add(existingUser);
         await UserDbContext.SaveChangesAsync();
@@ -133,13 +129,12 @@ public class UpdateUserTest : BaseIntegrationTest
     {
         // Arrange
         var existingUser = new User
-        {
-            Id = Guid.NewGuid(),
-            Name = "Frank Miller",
-            Email = "frank.miller@example.com",
-            Password = "Password123",
-            Role = UserRole.Customer.ToString()
-        };
+        (
+            "Frank Miller",
+            "frank.miller@example.com",
+            "Password123",
+            UserRole.Customer.ToString()
+        );
 
         UserDbContext.Users.Add(existingUser);
         await UserDbContext.SaveChangesAsync();
@@ -161,13 +156,12 @@ public class UpdateUserTest : BaseIntegrationTest
     {
         // Arrange
         var existingUser = new User
-        {
-            Id = Guid.NewGuid(),
-            Name = "Emily Davis",
-            Email = "emily.davis@example.com",
-            Password = "Password123",
-            Role = UserRole.Customer.ToString()
-        };
+        (
+            "Emily Davis",
+            "emily.davis@example.com",
+            "Password123",
+            UserRole.Customer.ToString()
+        );
 
         UserDbContext.Users.Add(existingUser);
         await UserDbContext.SaveChangesAsync();
@@ -189,13 +183,12 @@ public class UpdateUserTest : BaseIntegrationTest
     {
         // Arrange
         var existingUser = new User
-        {
-            Id = Guid.NewGuid(),
-            Name = "Jane Doe",
-            Email = "jane.doe@example.com",
-            Password = "Password123",
-            Role = UserRole.Customer.ToString()
-        };
+        (
+            "Jane Doe",
+            "jane.doe@example.com",
+            "Password123",
+            UserRole.Customer.ToString()
+        );
 
         UserDbContext.Users.Add(existingUser);
         await UserDbContext.SaveChangesAsync();

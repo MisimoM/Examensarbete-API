@@ -15,7 +15,9 @@ public class CreateListingEndpoint : IEndpoint
 
             return Results.Created($"/listings/{result.Id}", result);
 
-        }).WithName(nameof(CreateListing))
+        })
+        .RequireAuthorization("Host")
+        .WithName(nameof(CreateListing))
         .Produces<CreateListingResponse>(StatusCodes.Status201Created)
         .Produces(StatusCodes.Status400BadRequest);
     }

@@ -26,12 +26,12 @@ public class CreateBookingTest : BaseIntegrationTest
         var passwordHasher = _factory.Services.GetRequiredService<IPasswordHasher>();
 
         var user = new User
-        {
-            Id = Guid.NewGuid(),
-            Email = "admin@admin.com",
-            Role = UserRole.Admin.ToString(),
-            Password = passwordHasher.Hash("Admin123"),
-        };
+        (
+            "Admin User",
+            "admin@admin.com",
+            UserRole.Admin.ToString(),
+            passwordHasher.Hash("Admin123")
+        );
 
         var token = tokenProvider.CreateAccessToken(user);
 
@@ -62,11 +62,9 @@ public class CreateBookingTest : BaseIntegrationTest
         ListingDbContext.Listings.Add(listing);
         await ListingDbContext.SaveChangesAsync();
 
-        var userId = Guid.NewGuid();
         var client = _factory.CreateClient();
 
         var token = GenerateJwtToken("admin");
-
         client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
 
         var request = new CreateBookingRequest(listing.Id, DateTime.UtcNow.AddDays(1), DateTime.UtcNow.AddDays(5));
