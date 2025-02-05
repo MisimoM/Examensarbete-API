@@ -21,37 +21,31 @@ public class SearchListingTest : BaseIntegrationTest
         var listings = new List<Listing>
     {
         new Listing
-        {
-            Id = Guid.NewGuid(),
-            Title = "Mysigt Hus",
-            Description = "Mysigt hus",
-            AccommodationType = "House",
-            MainLocation = "Halmstads kommun",
-            SubLocation = "Steninge",
-            Price = 1500,
-            AvailableFrom = DateTime.UtcNow.AddDays(1),
-            AvailableUntil = DateTime.UtcNow.AddMonths(1),
-            Images = new List<ListingImage>
-            {
-                new ListingImage { Url = "https://example.com/image1.jpg", AltText = "Hus" }
-            }
-        },
+        (
+            Guid.NewGuid(),
+            Guid.NewGuid(),
+            "Mysigt Hus",
+            "Mysigt hus",
+            "House",
+            "Halmstads kommun",
+            "Steninge",
+            1500,
+            DateTime.UtcNow.AddDays(1),
+            DateTime.UtcNow.AddMonths(1)
+        ),
         new Listing
-        {
-            Id = Guid.NewGuid(),
-            Title = "Mysig stuga",
-            Description = "Mysig stuga",
-            AccommodationType = "Cottage",
-            MainLocation = "Falkenbergs kommun",
-            SubLocation = "Skrea Strand",
-            Price = 1200,
-            AvailableFrom = DateTime.UtcNow.AddDays(2),
-            AvailableUntil = DateTime.UtcNow.AddMonths(2),
-            Images = new List<ListingImage>
-            {
-                new ListingImage { Url = "https://example.com/image2.jpg", AltText = "Stuga" }
-            }
-        }
+        (
+            Guid.NewGuid(),
+            Guid.NewGuid(),
+            "Mysig stuga",
+            "Mysig stuga",
+            "Cottage",
+            "Falkenbergs kommun",
+            "Skrea Strand",
+            1200,
+            DateTime.UtcNow.AddDays(2),
+            DateTime.UtcNow.AddMonths(2)
+        )
     };
 
         ListingDbContext.Listings.AddRange(listings);

@@ -53,6 +53,10 @@ public class CreateListingTests : BaseIntegrationTest
             Images: new List<ListingImageDto>
             {
                 new ListingImageDto ( Url: "https://example.com/image1.jpg", AltText: "Hus" )
+            },
+            Facilities: new List<FacilityDto>
+            {
+                new FacilityDto (1, "WiFi")
             }
         );
         

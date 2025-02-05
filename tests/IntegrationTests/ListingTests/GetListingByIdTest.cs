@@ -20,20 +20,22 @@ public class GetListingByIdTest : BaseIntegrationTest
     {
         // Arrange
         var listing = new Listing
+        (
+            Guid.NewGuid(),
+            Guid.NewGuid(),
+            "Mysigt hus",
+            "Mysigt hus",
+            "House",
+            "Halmstads Kommun",
+            "Steninge",
+            1500,
+            DateTime.UtcNow.AddDays(1),
+            DateTime.UtcNow.AddMonths(1)
+        );
+
+        listing.Images = new List<ListingImage>
         {
-            Id = Guid.NewGuid(),
-            Title = "Test Listing",
-            Description = "Mysigt Hus",
-            AccommodationType = "House",
-            MainLocation = "Halmstads Kommun",
-            SubLocation = "Steninge",
-            Price = 1500,
-            AvailableFrom = DateTime.UtcNow.AddDays(1),
-            AvailableUntil = DateTime.UtcNow.AddMonths(1),
-            Images = new List<ListingImage>
-            {
-                new ListingImage { Url = "https://example.com/image1.jpg", AltText = "Hus" }
-            }
+            new(listing.Id,"imageUrl.jpg", "house" )
         };
 
         ListingDbContext.Listings.Add(listing);

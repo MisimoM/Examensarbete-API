@@ -50,8 +50,9 @@ public static class DependencyInjection
     public static void MigrateAndSeedListing(this WebApplication app)
     {
         var scope = app.Services.CreateScope();
-        var listingContext = scope.ServiceProvider.GetRequiredService<ListingDbContext>();
-        listingContext.Database.Migrate();
-        ListingSeeder.Seed(listingContext);
+        var listingDbContext = scope.ServiceProvider.GetRequiredService<ListingDbContext>();
+        listingDbContext.Database.Migrate();
+        FacilitySeeder.Seed(listingDbContext);
+        ListingSeeder.Seed(listingDbContext);
     }
 }

@@ -14,8 +14,8 @@ internal class UserSeeder
             (
                 "Admin User",
                 "admin@admin.com",
-                passwordHasher.Hash("Admin123"),
-                UserRole.Admin.ToString()
+                UserRole.Admin.ToString(),
+                passwordHasher.Hash("Admin123")
             );
 
             var hostUser = new User
@@ -23,8 +23,8 @@ internal class UserSeeder
                 Guid.Parse("d3b07384-d9a9-4e6b-a0b9-2f084bc16961"),
                 "Host User",
                 "host@host.com",
-                passwordHasher.Hash("Host123"),
-                UserRole.Host.ToString()
+                UserRole.Host.ToString(),
+                passwordHasher.Hash("Host123")
             );
 
             dbContext.Users.AddRange(adminUser, hostUser);

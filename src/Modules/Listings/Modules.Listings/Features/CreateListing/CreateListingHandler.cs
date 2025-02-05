@@ -27,33 +27,35 @@ public class CreateListingHandler(ListingDbContext dbContext, IValidator<CreateL
         var hostId = await _userService.GetUserIdAsync(userId, cancellationToken);
 
         var listing = new Listing
+        (
+            Guid.NewGuid(),
+            hostId,
+            request.Title,
+            request.Description,
+            request.AccommodationType,
+            request.MainLocation,
+            request.SubLocation,
+            request.Price,
+            request.AvailableFrom,
+            request.AvailableUntil
+        );
+
+        listing.Images = request.Images.Select(img => new ListingImage
+        (
+            listing.Id,
+            img.Url,
+            img.AltText
+        )).ToList();
+
+        listing.ListingFacilities = request.Facilities.Select(facility => new ListingFacility
         {
-            Id = Guid.NewGuid(),
-            Title = request.Title,
-            HostId = hostId,
-            Description = request.Description,
-            AccommodationType = request.AccommodationType,
-            MainLocation = request.MainLocation,
-            SubLocation = request.SubLocation,
-            Price = request.Price,
-            AvailableFrom = request.AvailableFrom,
-            AvailableUntil = request.AvailableUntil,
-            Images = request.Images.Select(img => new ListingImage
-            {
-                Url = img.Url,
-                AltText = img.AltText
-            }).ToList()
-        };
-        
-        foreach (var image in listing.Images)
-        {
-            image.ListingId = listing.Id;
-        }
+            ListingId = listing.Id,
+            FacilityId = facility.Id
+        }).ToList();
 
         _dbContext.Listings.Add(listing);
         await _dbContext.SaveChangesAsync(cancellationToken);
 
         return new CreateListingResponse(listing.Id);
-
     }
 }
