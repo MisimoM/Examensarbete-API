@@ -8,67 +8,67 @@ internal class ListingSeeder
     {
         if (!dbContext.Listings.Any())
         {
-            var listing1Id = Guid.NewGuid();
-            var listing2Id = Guid.NewGuid();
+            var listing1 = new Listing(
+                Guid.NewGuid(),
+                hostId: Guid.Parse("d3b07384-d9a9-4e6b-a0b9-2f084bc16961"),
+                title: "Liten stuga vid havet",
+                description: "Mysig stuga",
+                accommodationType: "Cottage",
+                mainLocation: "Varbergs kommun",
+                subLocation: "Apelviken",
+                price: 1000,
+                availableFrom: new DateTime(2025, 1, 1),
+                availableUntil: new DateTime(2026, 12, 31)
+            );
 
-            var listing1 = new Listing
+            listing1.Images = new List<ListingImage>
             {
-                Id = listing1Id,
-                HostId = Guid.Parse("d3b07384-d9a9-4e6b-a0b9-2f084bc16961"),
-                Title = "Liten stuga vid havet",
-                Description = "Mysig stuga",
-                AccommodationType = "Cottage",
-                MainLocation = "Varbergs kommun",
-                SubLocation = "Apelviken",
-                Price = 1000,
-                AvailableFrom = new DateTime(2025, 1, 1),
-                AvailableUntil = new DateTime(2026, 12, 31)
+                new(listing1.Id, "https://github.com/MisimoM/Examensarbete-media/blob/main/Apelviken/apelviken-1.jpg?raw=true", "Stuga"),
+                new(listing1.Id, "https://github.com/MisimoM/Examensarbete-media/blob/main/Apelviken/apelviken-2.jpg?raw=true", "Sovrum")
             };
 
-            var listing2 = new Listing
+            listing1.ListingFacilities = new List<ListingFacility>
             {
-                Id = listing2Id,
-                HostId = Guid.Parse("d3b07384-d9a9-4e6b-a0b9-2f084bc16961"),
-                Title = "Mysigt hus i Falkenberg",
-                Description = "Mysigt hus",
-                AccommodationType = "House",
-                MainLocation = "Falkenbergs kommun",
-                SubLocation = "Falkenberg stad",
-                Price = 1500,
-                AvailableFrom = new DateTime(2025, 1, 1),
-                AvailableUntil = new DateTime(2026, 12, 31)
+                new() { ListingId = listing1.Id, FacilityId = 1 },
+                new() { ListingId = listing1.Id, FacilityId = 2 },
+                new() { ListingId = listing1.Id, FacilityId = 3 },
+                new() { ListingId = listing1.Id, FacilityId = 4 },
+                new() { ListingId = listing1.Id, FacilityId = 5 },
+                new() { ListingId = listing1.Id, FacilityId = 7 },
+            };
+
+            var listing2 = new Listing(
+                Guid.NewGuid(),
+                hostId: Guid.Parse("d3b07384-d9a9-4e6b-a0b9-2f084bc16961"),
+                title: "Mysigt hus i Falkenberg",
+                description: "Mysigt hus",
+                accommodationType: "House",
+                mainLocation: "Falkenbergs kommun",
+                subLocation: "Falkenberg stad",
+                price: 1500,
+                availableFrom: new DateTime(2025, 1, 1),
+                availableUntil: new DateTime(2026, 12, 31)
+            );
+
+            listing2.Images = new List<ListingImage>
+            {
+                new(listing2.Id, "https://github.com/MisimoM/Examensarbete-media/blob/main/Falkenberg/falkenberg-1.jpg?raw=true", "Hus"),
+                new(listing2.Id, "https://github.com/MisimoM/Examensarbete-media/blob/main/Falkenberg/falkenberg-2.jpg?raw=true", "Kök")
+            };
+
+            listing2.ListingFacilities = new List<ListingFacility>
+            {
+                new() { ListingId = listing2.Id, FacilityId = 1 },
+                new() { ListingId = listing2.Id, FacilityId = 2 },
+                new() { ListingId = listing2.Id, FacilityId = 3 },
+                new() { ListingId = listing2.Id, FacilityId = 4 },
+                new() { ListingId = listing2.Id, FacilityId = 6 },
+                new() { ListingId = listing2.Id, FacilityId = 8 }
             };
 
             dbContext.Listings.AddRange(listing1, listing2);
-
-            dbContext.ListingImages.AddRange(
-                new ListingImage
-                {
-                    ListingId = listing1Id,
-                    Url = "https://github.com/MisimoM/Examensarbete-media/blob/main/Apelviken/apelviken-1.jpg?raw=true",
-                    AltText = "Stuga"
-                },
-                new ListingImage
-                {
-                    ListingId = listing1Id,
-                    Url = "https://github.com/MisimoM/Examensarbete-media/blob/main/Apelviken/apelviken-2.jpg?raw=true",
-                    AltText = "Sovrum"
-                },
-                new ListingImage
-                {
-                    ListingId = listing2Id,
-                    Url = "https://github.com/MisimoM/Examensarbete-media/blob/main/Falkenberg/falkenberg-1.jpg?raw=true",
-                    AltText = "Hus"
-                },
-                new ListingImage
-                {
-                    ListingId = listing2Id,
-                    Url = "https://github.com/MisimoM/Examensarbete-media/blob/main/Falkenberg/falkenberg-2.jpg?raw=true",
-                    AltText = "Kök"
-                }
-            );
-
             dbContext.SaveChanges();
         }
     }
 }
+

@@ -11,5 +11,7 @@ public record CreateListingRequest(
     decimal Price,
     DateTime AvailableFrom,
     DateTime AvailableUntil,
-    List<ListingImageDto> Images
+    List<ListingImageDto> Images,
+    List<FacilityDto> Facilities
 );
+

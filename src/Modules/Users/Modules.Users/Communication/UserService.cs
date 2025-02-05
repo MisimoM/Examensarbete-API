@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Modules.Users.Data;
+using Modules.Users.Entities;
 
 namespace Modules.Users.Communication;
 
@@ -15,5 +16,12 @@ internal class UserService(UserDbContext dbContext) : IUserService
             .FirstOrDefaultAsync(cancellationToken);
 
         return userId;
+    }
+
+    public async Task<User> GetUserAsync(Guid Id, CancellationToken cancellationToken)
+    {
+        var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == Id, cancellationToken);
+
+        return user!;
     }
 }

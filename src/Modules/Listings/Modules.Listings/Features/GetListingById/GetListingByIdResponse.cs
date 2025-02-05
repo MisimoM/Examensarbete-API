@@ -1,4 +1,6 @@
-﻿namespace Modules.Listings.Features.GetListingById;
+﻿using Modules.Listings.Dtos;
+
+namespace Modules.Listings.Features.GetListingById;
 
 public record GetListingByIdResponse(
     Guid Id,
@@ -11,8 +13,7 @@ public record GetListingByIdResponse(
     decimal Price,
     DateTime AvailableFrom,
     DateTime AvailableUntil,
-    List<ListingImageResponse> Images);
-
-public record ListingImageResponse(string Url, string AltText);
-
-public record HostResponse(string Name, string Email, string ProfileImage);
+    List<ListingImageDto> Images,
+    List<FacilityDto> Facilities,
+    HostDto Host
+);

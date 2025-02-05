@@ -1,4 +1,6 @@
-﻿namespace Modules.Listings.Features.SearchListing;
+﻿using Modules.Listings.Dtos;
+
+namespace Modules.Listings.Features.SearchListing;
 
 public record SearchListingResponse (
     Guid Id,
@@ -10,6 +12,4 @@ public record SearchListingResponse (
     decimal Price,
     DateTime AvailableFrom,
     DateTime AvailableUntil,
-    List<ListingImageResponse> Images);
-
-public record ListingImageResponse(string Url, string AltText);
+    List<ListingImageDto> Images);

@@ -9,8 +9,10 @@ public class ListingDbContext : DbContext
     {
     }
 
-    public DbSet<Listing> Listings { get; set; } = default!;
-    public DbSet<ListingImage> ListingImages { get; set; } = default!;
+    public DbSet<Listing> Listings { get; set; } = null!;
+    public DbSet<ListingImage> ListingImages { get; set; } = null!;
+    public DbSet<Facility> Facilities { get; set; } = null!;
+    public DbSet<ListingFacility> ListingFacilities { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

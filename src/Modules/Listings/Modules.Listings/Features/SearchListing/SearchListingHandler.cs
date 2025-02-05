@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Modules.Listings.Data;
+using Modules.Listings.Dtos;
 
 namespace Modules.Listings.Features.SearchListing;
 
@@ -32,7 +33,7 @@ public class SearchListingHandler(ListingDbContext dbContext)
                 l.Price,
                 l.AvailableFrom,
                 l.AvailableUntil,
-                l.Images.Select(img => new ListingImageResponse(img.Url, img.AltText)).ToList()
+                l.Images.Select(img => new ListingImageDto(img.Url, img.AltText)).ToList()
             ))
             .ToListAsync(cancellationToken);
 

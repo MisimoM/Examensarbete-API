@@ -48,6 +48,11 @@ internal class ListingConfiguration : IEntityTypeConfiguration<Listing>
                .WithOne(li => li.Listing)
                .HasForeignKey(li => li.ListingId);
 
+        builder.HasMany(l => l.ListingFacilities)
+               .WithOne(lf => lf.Listing)
+               .HasForeignKey(lf => lf.ListingId)
+               .OnDelete(DeleteBehavior.Cascade);
+
         builder.HasIndex(l => l.MainLocation);
 
         builder.HasIndex(l => l.SubLocation);
