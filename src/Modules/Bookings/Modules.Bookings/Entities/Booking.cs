@@ -7,43 +7,40 @@ public class Booking
     public Guid ListingId { get; private set; }
     public DateTime StartDate { get; private set; }
     public DateTime EndDate { get; private set; }
+    public decimal PricePerNight { get; private set; }
+    public int NumberOfNights { get; private set; }
     public decimal TotalPrice { get; private set; }
     public string Status { get; private set; } = "Pending";
 
     public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
     public DateTime? UpdatedAt { get; private set; }
 
-    private Booking(Guid userId, Guid listingId, DateTime startDate, DateTime endDate, decimal totalPrice)
+    private Booking(Guid userId, Guid listingId, DateTime startDate, DateTime endDate, decimal pricePerNight)
     {
         if (startDate >= endDate)
             throw new InvalidOperationException("Start date must be earlier than end date.");
+
+        if (pricePerNight <= 0)
+            throw new InvalidOperationException("Price per night must be greater than zero.");
 
         UserId = userId;
         ListingId = listingId;
         StartDate = startDate;
         EndDate = endDate;
-        TotalPrice = totalPrice;
+        PricePerNight = pricePerNight;
+        NumberOfNights = (endDate - startDate).Days;
+        TotalPrice = NumberOfNights * PricePerNight;
     }
 
     public static Booking Create(Guid userId, Guid listingId, DateTime startDate, DateTime endDate, decimal pricePerNight)
     {
-        var totalPrice = CalculateTotalPrice(startDate, endDate, pricePerNight);
-        return new Booking(userId, listingId, startDate, endDate, totalPrice);
+        return new Booking(userId, listingId, startDate, endDate, pricePerNight);
     }
 
-    private static decimal CalculateTotalPrice(DateTime startDate, DateTime endDate, decimal pricePerNight)
-    {
-        var totalDays = (endDate - startDate).Days;
-        if (totalDays <= 0)
-            throw new InvalidOperationException("End date must be later than start date.");
-
-        return totalDays * pricePerNight;
-    }
-
-    public void Confirm()
+    public void ConfirmPayment()
     {
         if (Status != "Pending")
-            throw new InvalidOperationException("Only pending bookings can be confirmed.");
+            throw new InvalidOperationException("Only pending bookings can be marked as paid.");
 
         Status = "Confirmed";
         UpdatedAt = DateTime.UtcNow;

@@ -12,7 +12,7 @@ using Modules.Bookings.Data;
 namespace Modules.Bookings.Data.Migrations
 {
     [DbContext(typeof(BookingDbContext))]
-    [Migration("20250117105613_InitialCreate")]
+    [Migration("20250219111247_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -40,6 +40,12 @@ namespace Modules.Bookings.Data.Migrations
 
                     b.Property<Guid>("ListingId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("NumberOfNights")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("PricePerNight")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("date");

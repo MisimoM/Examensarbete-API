@@ -4,7 +4,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Modules.Bookings.Data;
-using Modules.Bookings.Features.CreateBooking;
+using Modules.Bookings.Features.Bookings.CreateBooking;
+using Modules.Bookings.Features.Payment.Klarna.CreateOrder;
+using Modules.Bookings.Features.Payment.Klarna.GetOrder;
+using Modules.Bookings.Features.Payment.Klarna.OrderCallback;
 using Shared;
 using System.Reflection;
 
@@ -25,7 +28,9 @@ public static class DependencyInjection
         services.AddValidatorsFromAssembly(Assembly.Load("Modules.Bookings"));
 
         services.AddScoped<CreateBookingHandler>();
-
+        services.AddScoped<CreateOrderHandler>();
+        services.AddScoped<GetOrderHandler>();
+        services.AddScoped<OrderCallbackHandler>();
 
         return services;
     }
