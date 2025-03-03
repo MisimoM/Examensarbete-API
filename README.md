@@ -35,8 +35,8 @@ Varje modul är organiserad med **Vertical Slice Architecture**, och varje slice
 - **Kommande funktioner:** Mer avancerad filtrering och CRUD för annonshantering.
 
 **Bookings**
-- **Aktuella funktioner:** Funktionalitet för att genomföra bokningar.
-- **Kommande funktioner:**  Integration med Klarna för betalningshantering, samt CRUD-funktioner för att ändra eller ta bort bokningar.
+- **Aktuella funktioner:** Funktionalitet för att genomföra bokningar samt integration med Klarna för betalningshantering.
+- **Kommande funktioner:** CRUD-funktioner för att ändra eller ta bort bokningar.
 
 ## Hur man använder projektet
 Det här projektet kan köras med Microsoft SQL Server antingen lokalt eller via Docker. Du kan välja vilken metod du vill genom att justera connectionstringsen i appsettings.json.
