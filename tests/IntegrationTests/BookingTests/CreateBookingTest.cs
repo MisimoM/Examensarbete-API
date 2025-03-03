@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Modules.Bookings.Entities;
-using Modules.Bookings.Features.CreateBooking;
+using Modules.Bookings.Features.Bookings.CreateBooking;
 using Modules.Listings.Entities;
 using Modules.Users.Common.Enums;
 using Modules.Users.Common.Helpers;

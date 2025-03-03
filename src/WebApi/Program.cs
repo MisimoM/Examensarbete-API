@@ -8,6 +8,7 @@ using Shared;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
+builder.Services.AddHttpClient();
 
 builder.Services.AddSharedServices();
 builder.Services.AddUserModule(builder.Configuration);

@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-namespace Modules.Bookings.Features.CreateBooking;
+namespace Modules.Bookings.Features.Bookings.CreateBooking;
 
 public class CreateBookingValidator : AbstractValidator<CreateBookingRequest>
 {

@@ -7,7 +7,7 @@ using Modules.Listings.Communication;
 using Shared.Exceptions;
 using System.Security.Claims;
 
-namespace Modules.Bookings.Features.CreateBooking;
+namespace Modules.Bookings.Features.Bookings.CreateBooking;
 
 public class CreateBookingHandler(BookingDbContext dbContext, IListingService listingService, IValidator<CreateBookingRequest> validator, IHttpContextAccessor httpContextAccessor)
 {
@@ -60,6 +60,8 @@ public class CreateBookingHandler(BookingDbContext dbContext, IListingService li
             booking.ListingId,
             booking.StartDate,
             booking.EndDate,
+            booking.PricePerNight,
+            booking.NumberOfNights,
             booking.TotalPrice,
             booking.Status,
             booking.CreatedAt

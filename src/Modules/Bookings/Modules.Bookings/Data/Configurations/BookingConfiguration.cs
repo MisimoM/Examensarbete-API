@@ -24,6 +24,13 @@ internal class BookingConfiguration : IEntityTypeConfiguration<Booking>
             .IsRequired()
             .HasColumnType("date");
 
+        builder.Property(b => b.PricePerNight)
+            .IsRequired()
+            .HasColumnType("decimal(18,2)");
+
+        builder.Property(b => b.NumberOfNights)
+            .IsRequired();
+
         builder.Property(b => b.TotalPrice)
             .IsRequired()
             .HasColumnType("decimal(18,2)");
