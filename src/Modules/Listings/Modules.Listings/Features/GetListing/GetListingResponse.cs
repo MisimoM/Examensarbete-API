@@ -1,8 +1,8 @@
-﻿using Modules.Listings.Dtos;
+﻿using Modules.Listings.Features.Shared;
 
-namespace Modules.Listings.Features.SearchListing;
+namespace Modules.Listings.Features.GetListing;
 
-public record SearchListingResponse (
+public record GetListingResponse (
     Guid Id,
     Guid HostId,
     string Title,

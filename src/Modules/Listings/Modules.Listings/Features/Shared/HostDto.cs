@@ -1,2 +1,2 @@
-﻿namespace Modules.Listings.Dtos;
+﻿namespace Modules.Listings.Features.Shared;
 public record HostDto(string Name, string Email, string ProfileImage);

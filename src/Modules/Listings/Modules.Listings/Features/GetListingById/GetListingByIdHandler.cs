@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Modules.Listings.Data;
-using Modules.Listings.Dtos;
+using Modules.Listings.Features.Shared;
 using Modules.Users.Communication;
 using Shared.Exceptions;
 
