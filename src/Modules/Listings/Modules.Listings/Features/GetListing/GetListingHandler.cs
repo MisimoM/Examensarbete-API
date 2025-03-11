@@ -1,14 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Modules.Listings.Data;
-using Modules.Listings.Dtos;
+using Modules.Listings.Features.Shared;
 
-namespace Modules.Listings.Features.SearchListing;
+namespace Modules.Listings.Features.GetListing;
 
-public class SearchListingHandler(ListingDbContext dbContext)
+public class GetListingHandler(ListingDbContext dbContext)
 {
     private readonly ListingDbContext _dbContext = dbContext;
 
-    public async Task <List<SearchListingResponse>> Handle(SearchListingRequest request, CancellationToken cancellationToken)
+    public async Task <List<GetListingResponse>> Handle(GetListingRequest request, CancellationToken cancellationToken)
     {
         var query = _dbContext.Listings.AsQueryable();
 
@@ -22,7 +22,7 @@ public class SearchListingHandler(ListingDbContext dbContext)
             query = query.Where(l => l.AccommodationType == request.AccommodationType);
 
         var results = await query
-            .Select(l => new SearchListingResponse
+            .Select(l => new GetListingResponse
             (
                 l.Id,
                 l.HostId,

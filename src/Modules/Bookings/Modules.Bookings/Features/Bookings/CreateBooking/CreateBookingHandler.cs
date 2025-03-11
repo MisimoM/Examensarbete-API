@@ -1,28 +1,23 @@
 ﻿using FluentValidation;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Modules.Bookings.Data;
 using Modules.Bookings.Entities;
 using Modules.Listings.Communication;
 using Shared.Exceptions;
-using System.Security.Claims;
+using Shared.Helpers;
 
 namespace Modules.Bookings.Features.Bookings.CreateBooking;
 
-public class CreateBookingHandler(BookingDbContext dbContext, IListingService listingService, IValidator<CreateBookingRequest> validator, IHttpContextAccessor httpContextAccessor)
+public class CreateBookingHandler(BookingDbContext dbContext, IListingService listingService, IValidator<CreateBookingRequest> validator, IUserContextHelper userContextHelper)
 {
     private readonly BookingDbContext _dbContext = dbContext;
     private readonly IListingService _listingService = listingService;
     private readonly IValidator<CreateBookingRequest> _validator = validator;
-    private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
+    private readonly IUserContextHelper _userContextHelper = userContextHelper;
     public async Task<CreateBookingResponse> Handle(CreateBookingRequest request, CancellationToken cancellationToken)
     {
-        var userIdClaim = _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
 
-        if (userIdClaim is null)
-            throw new InvalidOperationException("UserId is null");
-
-        var userId = Guid.Parse(userIdClaim!);
+        var userId = _userContextHelper.GetUserIdFromClaims();
 
         var validationResult = await _validator.ValidateAsync(request, cancellationToken);
         if (!validationResult.IsValid)

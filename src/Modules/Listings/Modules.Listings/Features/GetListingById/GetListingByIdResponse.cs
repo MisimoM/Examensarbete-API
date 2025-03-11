@@ -1,4 +1,4 @@
-﻿using Modules.Listings.Dtos;
+﻿using Modules.Listings.Features.Shared;
 
 namespace Modules.Listings.Features.GetListingById;
 

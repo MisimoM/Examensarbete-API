@@ -1,5 +1,9 @@
-﻿using Modules.Listings.Entities;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Modules.Listings.Entities;
 using Modules.Listings.Features.GetListingById;
+using Modules.Users.Common.Enums;
+using Modules.Users.Common.Helpers;
+using Modules.Users.Entities;
 using System.Net;
 using System.Net.Http.Json;
 
@@ -19,10 +23,25 @@ public class GetListingByIdTest : BaseIntegrationTest
     public async Task GetListingById_ShouldReturnListing_WhenIdExists()
     {
         // Arrange
+
+        using var scope = _factory.Services.CreateScope();
+        var passwordHasher = scope.ServiceProvider.GetRequiredService<IPasswordHasher>();
+
+        var user = new User(
+            Guid.NewGuid(),
+            "Test Host",
+            "host@example.com",
+            UserRole.Host.ToString(),
+            passwordHasher.Hash("securepassword")
+        );
+
+        UserDbContext.Users.Add(user);
+        await UserDbContext.SaveChangesAsync();
+
         var listing = new Listing
         (
             Guid.NewGuid(),
-            Guid.NewGuid(),
+            user.Id,
             "Mysigt hus",
             "Mysigt hus",
             "House",

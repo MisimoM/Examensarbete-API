@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Modules.Listings.Dtos;
 using Modules.Listings.Features.CreateListing;
+using Modules.Listings.Features.Shared;
 using Modules.Users.Common.Enums;
 using Modules.Users.Common.Helpers;
 using Modules.Users.Common.Identity;

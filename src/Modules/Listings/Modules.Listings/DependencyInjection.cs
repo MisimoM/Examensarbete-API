@@ -8,7 +8,7 @@ using Modules.Listings.Data;
 using Modules.Listings.Data.Seed;
 using Modules.Listings.Features.CreateListing;
 using Modules.Listings.Features.GetListingById;
-using Modules.Listings.Features.SearchListing;
+using Modules.Listings.Features.GetListing;
 using Shared;
 using System.Reflection;
 
@@ -24,7 +24,7 @@ public static class DependencyInjection
 
         services.AddValidatorsFromAssembly(Assembly.Load("Modules.Listings"));
 
-        services.AddScoped<SearchListingHandler>();
+        services.AddScoped<GetListingHandler>();
         services.AddScoped<GetListingByIdHandler>();
         services.AddScoped<CreateListingHandler>();
         services.AddScoped<IListingService, ListingService>();

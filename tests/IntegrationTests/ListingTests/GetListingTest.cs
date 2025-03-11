@@ -1,21 +1,21 @@
 ﻿using Modules.Listings.Entities;
-using Modules.Listings.Features.SearchListing;
+using Modules.Listings.Features.GetListing;
 using System.Net.Http.Json;
 
 namespace IntegrationTests.ListingTests;
 
-public class SearchListingTest : BaseIntegrationTest
+public class GetListingTest : BaseIntegrationTest
 {
     private readonly IntegrationTestWebAppFactory _factory;
 
-    public SearchListingTest(IntegrationTestWebAppFactory factory)
+    public GetListingTest(IntegrationTestWebAppFactory factory)
         : base(factory)
     {
         _factory = factory;
     }
 
     [Fact]
-    public async Task SearchListing_ShouldReturnListings_WhenFiltersMatch()
+    public async Task GetListing_ShouldReturnListings_WhenFiltersMatch()
     {
         // Arrange
         var listings = new List<Listing>
@@ -60,7 +60,7 @@ public class SearchListingTest : BaseIntegrationTest
 
         // Assert
         response.EnsureSuccessStatusCode();
-        var result = await response.Content.ReadFromJsonAsync<List<SearchListingResponse>>();
+        var result = await response.Content.ReadFromJsonAsync<List<GetListingResponse>>();
 
         Assert.NotNull(result);
         Assert.Single(result);
@@ -70,7 +70,7 @@ public class SearchListingTest : BaseIntegrationTest
     }
 
     [Fact]
-    public async Task SearchListing_ShouldReturnEmpty_WhenNoFiltersMatch()
+    public async Task GetListing_ShouldReturnEmpty_WhenNoFiltersMatch()
     {
         // Arrange
         var client = _factory.CreateClient();
@@ -82,7 +82,7 @@ public class SearchListingTest : BaseIntegrationTest
 
         // Assert
         response.EnsureSuccessStatusCode();
-        var result = await response.Content.ReadFromJsonAsync<List<SearchListingResponse>>();
+        var result = await response.Content.ReadFromJsonAsync<List<GetListingResponse>>();
 
         Assert.NotNull(result);
         Assert.Empty(result);
