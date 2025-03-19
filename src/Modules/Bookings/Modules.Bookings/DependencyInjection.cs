@@ -7,7 +7,7 @@ using Modules.Bookings.Data;
 using Modules.Bookings.Features.Bookings.CreateBooking;
 using Modules.Bookings.Features.Payment.Klarna.CreateOrder;
 using Modules.Bookings.Features.Payment.Klarna.GetOrder;
-using Modules.Bookings.Features.Payment.Klarna.OrderCallback;
+using Modules.Bookings.Features.Payment.Klarna.OrderConfirmation;
 using Shared;
 using System.Reflection;
 
@@ -30,7 +30,7 @@ public static class DependencyInjection
         services.AddScoped<CreateBookingHandler>();
         services.AddScoped<CreateOrderHandler>();
         services.AddScoped<GetOrderHandler>();
-        services.AddScoped<OrderCallbackHandler>();
+        services.AddScoped<OrderConfirmationHandler>();
 
         return services;
     }

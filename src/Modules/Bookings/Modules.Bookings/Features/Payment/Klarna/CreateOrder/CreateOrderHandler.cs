@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using System.Net.Http.Headers;
 using System.Text.Json.Nodes;
 using System.Text;
+using Modules.Bookings.Common.Helpers;
 
 namespace Modules.Bookings.Features.Payment.Klarna.CreateOrder;
 
@@ -13,12 +13,12 @@ public class CreateOrderHandler(HttpClient httpClient, IConfiguration configurat
     private readonly IConfiguration _configuration = configuration;
     private readonly ILogger<CreateOrderHandler> _logger = logger;
 
+    private readonly string frontendUrl = "";
+    private readonly string backendUrl = "";
+
     public async Task<CreateOrderResponse> Handle(CreateOrderRequest request)
     {
         var klarnaApiUrl = _configuration["Klarna:CheckoutUrl"];
-        var username = _configuration["Klarna:Username"];
-        var password = _configuration["Klarna:Password"];
-
 
         var klarnaPayload = new
         {
@@ -43,20 +43,18 @@ public class CreateOrderHandler(HttpClient httpClient, IConfiguration configurat
             },
             merchant_urls = new
             {
-                terms = "frontendUrl/terms",
-                checkout = "frontendUrl/checkout",
-                confirmation = "frontendUrl/confirmation?order_id={checkout.order.id}",
-                push = "backendUrl/callback"
+                terms = $"{frontendUrl}/terms",
+                checkout = $"{frontendUrl}/checkout",
+                confirmation = $"{frontendUrl}/confirmation?order_id={{checkout.order.id}}",
+                push = $"{backendUrl}/order/confirmation"
             }
         };
-
-        var klarnaAuth = Encoding.ASCII.GetBytes($"{username}:{password}");
 
         var requestMessage = new HttpRequestMessage(HttpMethod.Post, klarnaApiUrl)
         {
             Content = new StringContent(JsonConvert.SerializeObject(klarnaPayload), Encoding.UTF8, "application/json")
         };
-        requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(klarnaAuth));
+        requestMessage.Headers.Authorization = KlarnaAuthHelper.GetAuthHeader(_configuration);
 
         var response = await _httpClient.SendAsync(requestMessage);
         response.EnsureSuccessStatusCode();

@@ -40,9 +40,8 @@ internal class RefreshHandler(UserDbContext dbContext, ITokenProvider tokenProvi
         _dbContext.RefreshTokens.Add(newRefreshToken);
         await _dbContext.SaveChangesAsync(cancellationToken);
 
-        CookieFactory.AppendCookie(httpContext.Response, "accessToken", newAccessToken, TimeSpan.FromMinutes(10));
         CookieFactory.AppendCookie(httpContext.Response, "refreshToken", newRefreshToken.Token, TimeSpan.FromDays(7));
 
-        return new RefreshResponse("Token refreshed successfully");
+        return new RefreshResponse(newAccessToken);
     }
 }

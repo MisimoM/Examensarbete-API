@@ -18,7 +18,7 @@ public class LoginHandler(UserDbContext dbContext, IPasswordHasher passwordHashe
 
     public async Task<LoginResponse> Handle(LoginRequest request, HttpContext httpContext, CancellationToken cancellationToken)
     {
-        var validationResult = await _validator.ValidateAsync(request);
+        var validationResult = await _validator.ValidateAsync(request, cancellationToken);
         
         if (!validationResult.IsValid)
         {
@@ -44,9 +44,8 @@ public class LoginHandler(UserDbContext dbContext, IPasswordHasher passwordHashe
         _dbContext.RefreshTokens.Add(refreshToken);
         await _dbContext.SaveChangesAsync(cancellationToken);
 
-        CookieFactory.AppendCookie(httpContext.Response, "accessToken", accessToken, TimeSpan.FromMinutes(10));
         CookieFactory.AppendCookie(httpContext.Response, "refreshToken", refreshToken.Token, TimeSpan.FromDays(7));
 
-        return new LoginResponse("Login successful");
+        return new LoginResponse(accessToken);
     }
 }
