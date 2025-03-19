@@ -9,14 +9,13 @@ public class GetOrderEndpoint : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder builder)
     {
-        builder.MapGet("/order/{id}", async (string id, GetOrderHandler getOrderHandler , CancellationToken cancellationToken) =>
+        builder.MapGet("/order/{id}", async (string id, GetOrderHandler getOrderHandler, CancellationToken cancellationToken) =>
         {
             var request = new GetOrderRequest(id);
             var response = await getOrderHandler.Handle(request, cancellationToken);
-            
+
             return Results.Ok(response);
         })
-        .Produces<GetOrderResponse>(StatusCodes.Status200OK)
-        .Produces(StatusCodes.Status400BadRequest);
+        .Produces<GetOrderResponse>(StatusCodes.Status200OK);
     }
 }
