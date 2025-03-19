@@ -38,7 +38,9 @@ public class LoginTest : BaseIntegrationTest
 
         // Assert
         response.EnsureSuccessStatusCode();
-        Assert.Contains(cookies, cookie => cookie.Contains("accessToken"));
         Assert.Contains(cookies, cookie => cookie.Contains("refreshToken"));
+
+        var loginResponse = await response.Content.ReadFromJsonAsync<LoginResponse>();
+        Assert.NotNull(loginResponse?.AccessToken);
     }
 }
