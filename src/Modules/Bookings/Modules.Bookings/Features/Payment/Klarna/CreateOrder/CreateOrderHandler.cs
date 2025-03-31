@@ -46,7 +46,7 @@ public class CreateOrderHandler(HttpClient httpClient, IConfiguration configurat
                 terms = $"{frontendUrl}/terms",
                 checkout = $"{frontendUrl}/checkout",
                 confirmation = $"{frontendUrl}/confirmation?order_id={{checkout.order.id}}",
-                push = $"{backendUrl}/order/confirmation"
+                push = $"{backendUrl}/order/confirmation?order_id={{checkout.order.id}}"
             }
         };
 
