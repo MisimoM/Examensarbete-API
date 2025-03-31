@@ -18,16 +18,16 @@ public class OrderConfirmationHandler(ILogger<OrderConfirmationHandler> logger, 
     private readonly BookingDbContext _dbContext = dbContext;
     public async Task<OrderConfirmationResponse> Handle(HttpContext context, CancellationToken cancellationToken)
     {
-        string klarnaOrderId = context.Request.Query["klarna_order_id"]!;
+        string klarnaOrderId = context.Request.Query["order_id"]!;
 
         if(string.IsNullOrEmpty(klarnaOrderId))
-            throw new BadRequestException("Missing klarna_order_id in query parameters");
+            throw new BadRequestException("Missing order_id in query parameters");
 
         _logger.LogInformation("Received Klarna Order Confirmation for Order ID: {OrderId}", klarnaOrderId);
 
-        var klarnaApiUrl = _configuration["Klarna:CheckoutUrl"];
+        var klarnaOrdermanagementUrl = _configuration["Klarna:OrdermanagementUrl"];
 
-        var requestMessage = new HttpRequestMessage(HttpMethod.Get, $"{klarnaApiUrl}/{klarnaOrderId}");
+        var requestMessage = new HttpRequestMessage(HttpMethod.Get, $"{klarnaOrdermanagementUrl}/{klarnaOrderId}");
         requestMessage.Headers.Authorization = KlarnaAuthHelper.GetAuthHeader(_configuration);
 
         var response = await _httpClient.SendAsync(requestMessage, cancellationToken);
@@ -38,7 +38,6 @@ public class OrderConfirmationHandler(ILogger<OrderConfirmationHandler> logger, 
 
         _logger.LogInformation("Klarna API Response: {Response}", responseContent);
 
-        string status = responseJson["status"]?.ToString()!;
         string bookingId = responseJson["order_lines"]?[0]?["reference"]?.ToString()!;
         if (string.IsNullOrEmpty(bookingId))
             throw new BadRequestException("Booking ID cannot be null or empty");
@@ -47,14 +46,11 @@ public class OrderConfirmationHandler(ILogger<OrderConfirmationHandler> logger, 
         if (booking is null)
             throw new NotFoundException($"Booking with ID {bookingId} not found.");
 
-        if (status is "checkout_complete")
-        {
-            booking.ConfirmPayment();
-            await _dbContext.SaveChangesAsync(cancellationToken);
-            _logger.LogInformation("Payment confirmed for Booking ID: {BookingId}", bookingId);
-        }
+        booking.ConfirmPayment();
+        await _dbContext.SaveChangesAsync(cancellationToken);
+        _logger.LogInformation("Payment confirmed for Booking ID: {BookingId}", bookingId);
 
-        var acknowledgeRequest = new HttpRequestMessage(HttpMethod.Post, $"{klarnaApiUrl}/{klarnaOrderId}/acknowledge");
+        var acknowledgeRequest = new HttpRequestMessage(HttpMethod.Post, $"{klarnaOrdermanagementUrl}/{klarnaOrderId}/acknowledge");
         acknowledgeRequest.Headers.Authorization = KlarnaAuthHelper.GetAuthHeader(_configuration);
         acknowledgeRequest.Content = new StringContent("{}", Encoding.UTF8, "application/json");
 
