@@ -18,7 +18,7 @@ Denna uppdelning gör datan mer organiserad och enklare att arbeta med, eftersom
 
 För att skapa enkla och effektiva API-endpoints använder jag Minimal APIs, vilket gör koden mer kompakt och lättläst.
 
-Varje modul är organiserad med **Vertical Slice Architecture**, och varje slice följer ett modifierat **REPR-pattern**:
+Varje modul är organiserad med **Vertical Slice Architecture**, och varje slice följer **REPR-pattern**:
 - **Request:** Innehåller inkommande data från klienten.
 - **Endpoint:** Definierar API-endpointen.
 - **Handler:** Hanterar logiken för operationen.
