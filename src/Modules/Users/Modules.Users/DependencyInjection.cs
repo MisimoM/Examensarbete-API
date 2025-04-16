@@ -18,6 +18,7 @@ using Modules.Users.Features.Users.UpdateUser;
 using Modules.Users.Features.Users.DeleteUser;
 using Modules.Users.Communication;
 using Modules.Users.Common.Enums;
+using Shared.Contracts;
 
 namespace Modules.Users;
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Modules.Users.Data;
-using Modules.Users.Entities;
+using Shared.Contracts;
+using Shared.Dtos;
 
 namespace Modules.Users.Communication;
 
@@ -8,20 +9,17 @@ internal class UserService(UserDbContext dbContext) : IUserService
 {
     private readonly UserDbContext _dbContext = dbContext;
 
-    public async Task<Guid> GetUserIdAsync(Guid Id, CancellationToken cancellationToken)
+    public async Task<UserDto> GetUserAsync(Guid id, CancellationToken cancellationToken)
     {
-        var userId = await _dbContext.Users
-            .Where(u => u.Id == Id)
-            .Select(u => u.Id)
-            .FirstOrDefaultAsync(cancellationToken);
+        var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == id, cancellationToken);
 
-        return userId;
-    }
+        if (user is null)
+            return null!;
 
-    public async Task<User> GetUserAsync(Guid Id, CancellationToken cancellationToken)
-    {
-        var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == Id, cancellationToken);
-
-        return user!;
+        return new UserDto(
+        user.Name,
+        user.Email,
+        user.ProfileImage
+        );
     }
 }

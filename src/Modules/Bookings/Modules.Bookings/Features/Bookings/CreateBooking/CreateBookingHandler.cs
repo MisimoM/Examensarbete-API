@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Modules.Bookings.Data;
 using Modules.Bookings.Entities;
-using Modules.Listings.Communication;
+using Shared.Contracts;
 using Shared.Exceptions;
 using Shared.Helpers;
 

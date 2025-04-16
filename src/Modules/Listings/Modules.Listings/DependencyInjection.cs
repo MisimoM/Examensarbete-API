@@ -11,6 +11,7 @@ using Modules.Listings.Features.GetListingById;
 using Modules.Listings.Features.GetListing;
 using Shared;
 using System.Reflection;
+using Shared.Contracts;
 
 namespace Modules.Listings;
 
