@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using Modules.Listings.Data;
 using Modules.Listings.Entities;
-using Modules.Users.Communication;
+using Shared.Contracts;
 using Shared.Exceptions;
 using Shared.Helpers;
 
@@ -23,8 +23,7 @@ public class CreateListingHandler(ListingDbContext dbContext, IValidator<CreateL
             throw new BadRequestException($"Validation failed: {string.Join(", ", errors)}");
         }
 
-        var userId = _userContextHelper.GetUserIdFromClaims();
-        var hostId = await _userService.GetUserIdAsync(userId, cancellationToken);
+        var hostId = _userContextHelper.GetUserIdFromClaims();
 
         var listing = new Listing
         (

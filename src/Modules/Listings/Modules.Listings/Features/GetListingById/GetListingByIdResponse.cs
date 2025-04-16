@@ -1,4 +1,5 @@
 ﻿using Modules.Listings.Features.Shared;
+using Shared.Dtos;
 
 namespace Modules.Listings.Features.GetListingById;
 
@@ -15,5 +16,5 @@ public record GetListingByIdResponse(
     DateTime AvailableUntil,
     List<ListingImageDto> Images,
     List<FacilityDto> Facilities,
-    HostDto Host
+    UserDto Host
 );

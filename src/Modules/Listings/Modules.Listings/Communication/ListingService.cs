@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Modules.Listings.Data;
-using Modules.Listings.Entities;
+using Shared.Contracts;
+using Shared.Dtos;
 
 namespace Modules.Listings.Communication;
 
@@ -8,12 +9,18 @@ internal class ListingService(ListingDbContext dbContext) : IListingService
 {
     private readonly ListingDbContext _dbContext = dbContext;
 
-    public async Task<Listing> GetByIdAsync(Guid id)
+    public async Task<ListingDto> GetByIdAsync(Guid id)
     {
         var listing = await _dbContext.Listings
             .AsNoTracking()
             .FirstOrDefaultAsync(l => l.Id == id);
 
-        return listing!;
+        if (listing is null)
+            return null!;
+
+        return new ListingDto(
+            listing.Id,
+            listing.Price
+        );
     }
 }

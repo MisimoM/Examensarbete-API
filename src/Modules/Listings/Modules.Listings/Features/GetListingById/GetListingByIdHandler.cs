@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Modules.Listings.Data;
 using Modules.Listings.Features.Shared;
-using Modules.Users.Communication;
+using Shared.Contracts;
 using Shared.Exceptions;
 
 namespace Modules.Listings.Features.GetListingById;
@@ -31,8 +31,6 @@ public class GetListingByIdHandler(ListingDbContext dbContext, IUserService user
         if (user is null)
             throw new NotFoundException($"No host with the ID {listing.HostId} was found.");
 
-        var host = new HostDto(user.Name, user.Email, user.ProfileImage);
-
 
         return new GetListingByIdResponse(
             listing.Id,
@@ -47,7 +45,7 @@ public class GetListingByIdHandler(ListingDbContext dbContext, IUserService user
             listing.AvailableUntil,
             listing.Images.Select(img => new ListingImageDto(img.Url, img.AltText)).ToList(),
             listing.ListingFacilities.Select(lf => new FacilityDto(lf.Facility.Id, lf.Facility.Name)).ToList(),
-            host
+            user
         );
     }
 }
