@@ -1,29 +1,26 @@
 ## Projektbeskrivning
 
-Examensprojektet är en uthyrningsplattform för bostäder i Halland, med fokus på att hantera allt från användarautentisering till bokningar och betalningar.
-Backend-API:t är byggt med ASP.NET Core, och frontend-delen är utvecklad med React/Next.js.
+Examensprojektet är en uthyrningsplattform för bostäder i Halland som omfattar hela flödet från användarautentisering till bokningar och betalningar.
+Backend är byggd med ASP.NET Core och frontend utvecklad med React/Next.js.
 
 Du hittar länken till frontend-repot här: https://github.com/MisimoM/Examensarbete-UI
 
-## Målet med examensarbetet
-Målet med examensarbetet är att bygga en fungerande applikation, vilket ger praktisk erfarenhet inom systemdesign, API-utveckling och fullstackutveckling.
-Projektet använder en modular monolith-arkitektur och Vertical Slice Architecture för att skapa skalbara lösningar, samt implementera moderna utvecklingsprinciper.
-
 ## Arkitektur och uppbyggnad
-Projektet är byggt som en modular monolith, en arkitektur som kombinerar enkelheten hos en monolit med möjligheten att i framtiden bryta ut moduler till separata microservices.
-Applikationen är indelad i tydliga moduler med egna ansvarsområden, vilket gör den både lätt att förstå och utveckla.
+Projektet är byggt som en Modular Monolith, vilket innebär att applikationen är uppdelad i tydligt avgränsade moduler med egna ansvarsområden.
+Genom att hålla modulerna isolerade från varandra blir systemet enklare att förstå, testa och vidareutveckla.
 
-För att separera data och ansvarsområden använder varje modul sitt eget databasschema i en gemensam databas.
-Denna uppdelning gör datan mer organiserad och enklare att arbeta med, eftersom varje modul hanterar sin egen data utan att påverka andra.
+Varje modul har ett eget databasschema i en gemensam databas.
+Denna uppdelning gör datan mer organiserad och enklare att arbeta med eftersom varje modul hanterar sin egen data utan att påverka andra.
 
-För att skapa enkla och effektiva API-endpoints använder jag Minimal APIs, vilket gör koden mer kompakt och lättläst.
-
-Varje modul är organiserad med **Vertical Slice Architecture**, och varje slice följer **REPR-pattern**:
+Varje modul är organiserad med **Vertical Slice Architecture** och varje slice följer **REPR-pattern**:
 - **Request:** Innehåller inkommande data från klienten.
 - **Endpoint:** Definierar API-endpointen.
 - **Handler:** Hanterar logiken för operationen.
 - **Response:** Returnerar strukturerat svar till klienten.
 - **Validator:** Validerar inkommande data med hjälp av FluentValidation (när det behövs).
+
+Varje slice testas med integrationstester som körs med Testcontainers för att verifiera att allt fungerar korrekt mot en riktig databas.
+Testerna körs automatiskt i CI/CD-pipelinen via GitHub Actions
 
 ### Moduler och Funktionalitet
 **Users/Authentication**
@@ -48,8 +45,4 @@ För att testa inloggning och få access- och refresh-token, använd den seedade
 - E-post: admin@admin.com
 - Lösenord: Admin123
 
-Inloggningen ger cookies med access-token och refresh-token, som används för autentisering vid bokningar (just nu är autentisering endast implementerad för boknings-API:et).
-
 Istället för Swagger används Scalar som GUI för att interagera med API:t. Du kan nå Scalar-dokumentationen via scalar/v1 i URL:en, t.ex. http://localhost:{port}/scalar/v1.
-
-En frontendapplikation för projektet ingår också i mitt examensarbete. Det är byggt i React/Next.js. Du hittar länken till frontend-repot här: https://github.com/MisimoM/Examensarbete-UI
