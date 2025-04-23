@@ -6,7 +6,7 @@ Backend är byggd med ASP.NET Core och frontend utvecklad med React/Next.js.
 Du hittar länken till frontend-repot här: https://github.com/MisimoM/Examensarbete-UI
 
 ## Arkitektur och uppbyggnad
-Projektet är byggt som en Modular Monolith, vilket innebär att applikationen är uppdelad i tydligt avgränsade moduler med egna ansvarsområden.
+Projektet är byggt som en **Modular Monolith**, vilket innebär att applikationen är uppdelad i tydligt avgränsade moduler med egna ansvarsområden.
 Genom att hålla modulerna isolerade från varandra blir systemet enklare att förstå, testa och vidareutveckla.
 
 Varje modul har ett eget databasschema i en gemensam databas.
